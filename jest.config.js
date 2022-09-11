@@ -27,7 +27,7 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/"
+    '/node_modules/'
   ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -125,7 +125,7 @@ module.exports = {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    "<rootDir>/src"
+    '<rootDir>/src'
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
@@ -174,7 +174,7 @@ module.exports = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  transform: {'.+\\.ts$': 'ts-jest'},
+  transform: { '.+\\.ts$': 'ts-jest' }
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -193,4 +193,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}
