@@ -1,5 +1,6 @@
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError } from '@/presentation/errors/missing-param-error'
+import { ServerError } from '@/presentation/errors/server-error'
 import { NameValidator } from '@/presentation/protocols/name-validator'
 
 interface SutTypes {
@@ -57,5 +58,23 @@ describe('AddPersona Controller', () => {
     }
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('any_name')
+  })
+
+  test('Deve retornar 500 se NameValidator retornar erro', () => {
+    class NameValidatorStub implements NameValidator {
+      isValid (name: string): boolean {
+        throw new Error()
+      }
+    }
+    const nameValidatorStub = new NameValidatorStub()
+    const sut = new AddPersonaController(nameValidatorStub)
+    const httpRequest = {
+      body: {
+        name: 'any_name'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
 })
