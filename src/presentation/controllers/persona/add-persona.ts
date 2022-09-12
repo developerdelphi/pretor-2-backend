@@ -1,16 +1,12 @@
 import { MissingParamError } from '@/presentation/errors/missing-param-error'
+import { badRequestParam } from '@/presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 
 export class AddPersonaController {
   handle (httpRequest: HttpRequest): HttpResponse {
     if (!httpRequest.body.name) {
-      return {
-        statusCode: 400,
-        body: {
-          field: 'name',
-          data: new MissingParamError('Nome informado é inválido')
-        }
-      }
+      const sendError = new MissingParamError('Nome informado é inválido')
+      return badRequestParam(sendError, 'name')
     }
     return {
       statusCode: 444,
