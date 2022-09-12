@@ -13,8 +13,11 @@ class Persona {
   }
 
   set name (value: string) {
-    const validateName = value.trim()
-    if (validateName.length > 0) { this._name = validateName }
+    const validateName: string = value.trim()
+    if (validateName.length <= 5) {
+      throw (new Error('Nome invalido'))
+    }
+    this._name = validateName
   }
 }
 
