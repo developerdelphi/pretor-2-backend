@@ -4,11 +4,10 @@ describe('AddPersona Controller', () => {
     const sut = new AddPersonaController()
     const httpRequest = {
       body: {
-        name: 'valid_name'
+        name: ''
       }
     }
     const httpResponse = sut.handle(httpRequest)
-
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new Error('Nome é inválido'))
   })
