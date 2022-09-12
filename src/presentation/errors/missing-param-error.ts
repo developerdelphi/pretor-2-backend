@@ -1,6 +1,6 @@
 export class MissingParamError extends Error {
-  constructor (msg: string = 'valor inválido') {
-    super(msg)
+  constructor (fieldName: string, msg: string = 'valor inválido') {
+    super(`${fieldName}: ${msg}`)
     this.name = 'MissingParamError'
   }
 }
