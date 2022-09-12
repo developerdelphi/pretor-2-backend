@@ -12,9 +12,8 @@ export class AddPersonaController implements Controller {
       const sendError = new MissingParamError('name')
       return badRequestParam(sendError, 'name')
     }
-    console.log('is valid: ', isValidName)
     return {
-      statusCode: 444,
+      statusCode: 500,
       body: {}
     }
   }

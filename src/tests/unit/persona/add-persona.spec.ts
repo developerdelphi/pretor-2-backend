@@ -2,21 +2,28 @@ import { AddPersonaController } from '@/presentation/controllers/persona/add-per
 import { MissingParamError } from '@/presentation/errors/missing-param-error'
 import { NameValidator } from '@/presentation/protocols/name-validator'
 
-const makeSut = (): AddPersonaController => {
+interface SutTypes {
+  sut: AddPersonaController
+  nameValidatorStub: NameValidator
+}
+
+const makeSut = (): SutTypes => {
   class NameValidatorStub implements NameValidator {
     isValid (name: string): boolean {
       if (!name) return false
-      if (name.trim().length >= 5) return true
-      return false
+      // if (name.trim().length >= 5) return true
+      return true
     }
   }
   const nameValidatorStub = new NameValidatorStub()
-  return new AddPersonaController(nameValidatorStub)
+  const sut = new AddPersonaController(nameValidatorStub)
+
+  return { sut, nameValidatorStub }
 }
 
 describe('AddPersona Controller', () => {
-  test('Deve retornar 400 se não informou parâmetro name', () => {
-    const sut = makeSut()
+  test('Deve retornar 400 se não recebeu parâmetro name', () => {
+    const { sut } = makeSut()
     const httpRequest = {
       body: {
         cpf: 'valid_cpf'
@@ -28,7 +35,8 @@ describe('AddPersona Controller', () => {
   })
 
   test('Deve retornar 400 se recebeu dados inválidos para parâmetro name', () => {
-    const sut = makeSut()
+    const { sut, nameValidatorStub } = makeSut()
+    jest.spyOn(nameValidatorStub, 'isValid').mockReturnValue(false)
     const httpRequest = {
       body: {
         name: ''
@@ -36,6 +44,6 @@ describe('AddPersona Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    // expect(httpResponse.body.data).toBeInstanceOf(MissingParamError)
+    expect(httpResponse.body.data).toBeInstanceOf(MissingParamError)
   })
 })
