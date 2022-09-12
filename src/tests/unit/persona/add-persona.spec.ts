@@ -1,8 +1,13 @@
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError } from '@/presentation/errors/missing-param-error'
+
+const makeSut = (): AddPersonaController => {
+  return new AddPersonaController()
+}
+
 describe('AddPersona Controller', () => {
   test('Deve retornar 400 se recebeu dados inválidos para parâmetro name', () => {
-    const sut = new AddPersonaController()
+    const sut = makeSut()
     const httpRequest = {
       body: {
         name: ''
