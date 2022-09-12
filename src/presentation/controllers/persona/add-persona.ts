@@ -1,9 +1,6 @@
-import { MissingParamError } from '@/presentation/errors/missing-param-error'
-import { ServerError } from '@/presentation/errors/server-error'
-import { badRequestParam } from '@/presentation/helpers/http-helper'
-import { Controller } from '@/presentation/protocols/controller'
-import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
-import { NameValidator } from '@/presentation/protocols/name-validator'
+import { MissingParamError } from '@/presentation/errors'
+import { badRequestParam, serverError } from '@/presentation/helpers'
+import { NameValidator, Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class AddPersonaController implements Controller {
   constructor (private readonly nameValidator: NameValidator) {}
@@ -15,10 +12,7 @@ export class AddPersonaController implements Controller {
         return badRequestParam(sendError, 'name')
       }
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: new ServerError()
-      }
+      return serverError()
     }
     return {
       statusCode: 500,

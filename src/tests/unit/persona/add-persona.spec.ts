@@ -1,7 +1,6 @@
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
-import { MissingParamError } from '@/presentation/errors/missing-param-error'
-import { ServerError } from '@/presentation/errors/server-error'
-import { NameValidator } from '@/presentation/protocols/name-validator'
+import { MissingParamError, ServerError } from '@/presentation/errors'
+import { NameValidator } from '@/presentation/protocols'
 
 interface SutTypes {
   sut: AddPersonaController
