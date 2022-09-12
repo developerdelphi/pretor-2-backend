@@ -46,4 +46,16 @@ describe('AddPersona Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body.data).toBeInstanceOf(MissingParamError)
   })
+
+  test('Deve garantir que chamou o NameValidator com o nome correto', () => {
+    const { sut, nameValidatorStub } = makeSut()
+    const isValidSpy = jest.spyOn(nameValidatorStub, 'isValid')
+    const httpRequest = {
+      body: {
+        name: 'any_name'
+      }
+    }
+    sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith('any_name')
+  })
 })
