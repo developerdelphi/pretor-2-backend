@@ -8,7 +8,7 @@ interface PersonaContract {
 class Persona {
   private _name: string = ''
   constructor (name?: string) {
-    if (name) this._name = name
+    if (name) this.name = name
   }
 
   get name (): string {
@@ -16,11 +16,10 @@ class Persona {
   }
 
   set name (value: string) {
-    const validateName: string = value.trim()
-    if (validateName.length <= 5) {
-      throw (new Error('Nome invalido'))
+    if (value && value.length <= 5) {
+      throw (new Error('Invalid name'))
     }
-    this._name = validateName
+    this._name = value
   }
 }
 
