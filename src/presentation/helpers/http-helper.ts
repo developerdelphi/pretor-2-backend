@@ -17,3 +17,12 @@ export const serverError = (): HttpResponse => {
     body: new ServerError()
   }
 }
+
+export const success = (data: any): HttpResponse => {
+  return {
+    statusCode: 200,
+    body: {
+      data
+    }
+  }
+}

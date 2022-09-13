@@ -1,6 +1,6 @@
 import { AddPersona } from '@/domain/usecases/add-persona'
 import { MissingParamError } from '@/presentation/errors'
-import { badRequestParam, serverError } from '@/presentation/helpers'
+import { badRequestParam, serverError, success } from '@/presentation/helpers'
 import { NameValidator, Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class AddPersonaController implements Controller {
@@ -13,12 +13,7 @@ export class AddPersonaController implements Controller {
         return badRequestParam(sendError, 'name')
       }
       const persona = this.addPersona.add({ name: httpRequest.body.name })
-      return {
-        statusCode: 200,
-        body: {
-          data: persona
-        }
-      }
+      return success(persona)
     } catch (error) {
       return serverError()
     }
