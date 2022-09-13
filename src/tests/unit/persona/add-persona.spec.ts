@@ -7,7 +7,7 @@ interface SutTypes {
   nameValidatorStub: NameValidator
 }
 
-const makeSut = (): SutTypes => {
+const makeNameValidator = (): NameValidator => {
   class NameValidatorStub implements NameValidator {
     isValid (name: string): boolean {
       if (!name) return false
@@ -15,7 +15,19 @@ const makeSut = (): SutTypes => {
       return true
     }
   }
-  const nameValidatorStub = new NameValidatorStub()
+  return new NameValidatorStub()
+}
+
+const makeNameValidatorWithError = (): NameValidator => {
+  class NameValidatorStub implements NameValidator {
+    isValid (name: string): boolean {
+      throw new Error()
+    }
+  }
+  return new NameValidatorStub()
+}
+const makeSut = (): SutTypes => {
+  const nameValidatorStub = makeNameValidator()
   const sut = new AddPersonaController(nameValidatorStub)
 
   return { sut, nameValidatorStub }
@@ -60,12 +72,7 @@ describe('AddPersona Controller', () => {
   })
 
   test('Deve retornar 500 se NameValidator retornar erro', () => {
-    class NameValidatorStub implements NameValidator {
-      isValid (name: string): boolean {
-        throw new Error()
-      }
-    }
-    const nameValidatorStub = new NameValidatorStub()
+    const nameValidatorStub = makeNameValidatorWithError()
     const sut = new AddPersonaController(nameValidatorStub)
     const httpRequest = {
       body: {
