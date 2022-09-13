@@ -8,4 +8,9 @@ describe('Persona Entity', () => {
 
     expect(persona.name).toBe('valid_name')
   })
+
+  test('Deve tentar cadastrar uma pessoa com um nome inválido', () => {
+    const name = 'no'
+    expect(() => new Persona(name)).toThrow(new Error('Invalid name'))
+  })
 })
