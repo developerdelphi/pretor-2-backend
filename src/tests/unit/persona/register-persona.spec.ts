@@ -5,8 +5,8 @@ describe('Cadastro de Persona', () => {
     const input = {
       name: 'valid_name'
     }
-    const sut = new Persona()
-    sut.name = input.name
-    expect(sut.name).toBe('valid_name')
+    const sut = new Persona(input.name)
+
+    expect(sut.name.value).toBe('valid_name')
   })
 })
