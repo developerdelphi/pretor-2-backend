@@ -19,4 +19,18 @@ describe('DbAddPersona Usecase', () => {
     }
     expect(result).toEqual(fakeResult)
   })
+
+  test('Deve garantir que AddPersonaRepository foi chamado com valores corretos', async () => {
+    const sut = makeSut()
+    const addPersona = {
+      name: 'Valid Name'
+    }
+
+    const result = await sut.add(addPersona)
+    const fakeResult = {
+      id: 'valid_id',
+      name: 'Valid Name'
+    }
+    expect(result).toEqual(fakeResult)
+  })
 })
