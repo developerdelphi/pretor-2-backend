@@ -11,21 +11,21 @@ describe('Name Value Object', () => {
     expect(() => makeSut(name)).toThrow(new Error('Invalid name'))
   })
 
-  test('Deve retornar erro se o nome conter caracteres inválidos', () => {
+  test('Deve retornar nome sem conter caracteres inválidos', () => {
     const name: string = 'nome with -/{}%$#@*()+123'
+    const sut = makeSut(name)
+    expect(sut.value).toEqual('nome with')
+  })
+
+  test('Deve retornar erro se nome for menor que 5 caracteres', () => {
+    const name: string = 'nome'
     expect(() => makeSut(name)).toThrow(new Error('Invalid name'))
   })
 
-  // test('Deve retornar false se nome for menor que 5 caracteres', () => {
-  //   const sut = makeSut()
-  //   const isValid = sut.isValid('_no_')
-  //   expect(isValid).toBeFalsy()
-  // })
+  test('Deve validar nome com acentuações', () => {
+    const name = 'João Antônio de Sá'
+    const sut = makeSut(name)
 
-  // test('Deve validar nome com acentuações', () => {
-  //   const sut = makeSut()
-  //   const sanitizeName = 'João de Sá'
-  //   const isValid = sut.isValid(sanitizeName)
-  //   expect(isValid).toBeTruthy()
-  // })
+    expect(sut.value).toEqual(name)
+  })
 })
