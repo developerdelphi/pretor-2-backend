@@ -7,6 +7,9 @@ interface PersonaContract {
 }
 class Persona {
   private _name: string = ''
+  constructor (name?: string) {
+    if (name) this._name = name
+  }
 
   get name (): string {
     return this._name
