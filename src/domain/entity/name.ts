@@ -9,11 +9,13 @@ export default class Name {
     const nameSanitized = this.removeSpecialChars(name)
     const existName = !!(nameSanitized)
     // eslint-disable-next-line no-empty-character-class
-    const contentSpecialChars = !!(nameSanitized.match(/[0-9_]|\W|\[#$%&"*()_=+@!'?:,{}[]\]/g))
+    const contentSpecialChars = !!(nameSanitized.match(/[0-9_]|\[#$%&"*()_=+@!'?:,{}[]\]/g))
+
     // console.log('O nome contem char especial:', contentSpecialChars)
     const contentMinMaxLength = !!((nameSanitized.length >= 5 && nameSanitized.length <= 250))
+    // console.log('Length:', contentMinMaxLength, nameSanitized.length)
     if (existName && !contentSpecialChars && contentMinMaxLength) {
-      // console.log(nameSanitized)
+      // console.log('Nome retornado:', nameSanitized)
       this.value = nameSanitized
       return true
     }
