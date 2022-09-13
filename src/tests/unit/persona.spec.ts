@@ -1,20 +1,25 @@
 import { Persona } from '@/domain/entity/persona'
+import InputPersonaData from '@/domain/protocols/persona-protocols'
+
+const makeSut = (inputPersonaData: InputPersonaData): Persona => {
+  const sut = new Persona(inputPersonaData)
+  return sut
+}
 
 describe('Persona Entity', () => {
   test('Deve tentar cadastrar uma pessoa com um nome inválido', () => {
-    const name = 'no'
-    expect(() => new Persona(name)).toThrow(new Error('Invalid name'))
+    const input = { name: 'no', kind: 'F' }
+    expect(() => makeSut(input)).toThrow(new Error('Invalid name'))
   })
 
   test('Deve cadastrar uma pessoa com um nome válido', () => {
-    const name = 'valid name'
-    const persona = new Persona(name)
+    const input = { name: 'valid name', kind: 'F' }
+    const persona = new Persona(input)
     expect(persona.name.value).toBe('valid name')
   })
   test('Deve criar uma pessoa como pessoa física', () => {
-    const name = 'Valid Name'
-    const kind = 'F'
-    const sut = new Persona(name, kind)
+    const input = { name: 'valid name', kind: 'F' }
+    const sut = new Persona(input)
     expect(sut.kind).toEqual('F')
   })
 })
