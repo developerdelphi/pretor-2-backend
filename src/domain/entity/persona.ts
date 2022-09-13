@@ -1,26 +1,15 @@
-interface PersonaInputData {
+import Name from './name'
+
+export interface PersonaInputData {
   name: string
 }
 
-interface PersonaContract {
+export interface PersonaContract {
   name: string
 }
-class Persona {
-  private _name: string = ''
-  constructor (name?: string) {
-    if (name) this.name = name
-  }
-
-  get name (): string {
-    return this._name
-  }
-
-  set name (value: string) {
-    if (value && value.length <= 5) {
-      throw (new Error('Invalid name'))
-    }
-    this._name = value
+export class Persona {
+  name: Name
+  constructor (name: string) {
+    this.name = new Name(name)
   }
 }
-
-export { Persona, PersonaContract, PersonaInputData }
