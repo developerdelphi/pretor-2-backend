@@ -1,3 +1,5 @@
+import { PersonaModel } from '@/domain/models/persona'
+import { AddPersona, AddPersonaModel } from '@/domain/usecases/add-persona'
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { NameValidator } from '@/presentation/protocols'
@@ -5,6 +7,7 @@ import { NameValidator } from '@/presentation/protocols'
 interface SutTypes {
   sut: AddPersonaController
   nameValidatorStub: NameValidator
+  addPersonaStub: AddPersona
 }
 
 const makeNameValidator = (): NameValidator => {
@@ -18,11 +21,25 @@ const makeNameValidator = (): NameValidator => {
   return new NameValidatorStub()
 }
 
+const makeAddPersona = (): AddPersona => {
+  class AddPersonaStub implements AddPersona {
+    add (insert: AddPersonaModel): PersonaModel {
+      const fakePersona = {
+        id: 'valid_id',
+        name: 'valid_name'
+      }
+      return fakePersona
+    }
+  }
+  return new AddPersonaStub()
+}
+
 const makeSut = (): SutTypes => {
   const nameValidatorStub = makeNameValidator()
-  const sut = new AddPersonaController(nameValidatorStub)
+  const addPersonaStub = makeAddPersona()
+  const sut = new AddPersonaController(nameValidatorStub, addPersonaStub)
 
-  return { sut, nameValidatorStub }
+  return { sut, nameValidatorStub, addPersonaStub }
 }
 
 describe('AddPersona Controller', () => {
@@ -74,5 +91,15 @@ describe('AddPersona Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toBeInstanceOf(ServerError)
+  })
+
+  test('Deve chamar AddPersona com valores corretos', () => {
+    const { sut, addPersonaStub } = makeSut()
+    const addSpy = jest.spyOn(addPersonaStub, 'add')
+    const httpRequest = {
+      body: { name: 'valid_name' }
+    }
+    sut.handle(httpRequest)
+    expect(addSpy).toHaveBeenCalledWith({ name: 'valid_name' })
   })
 })
