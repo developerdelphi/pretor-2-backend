@@ -1,37 +1,32 @@
 export default class Name {
-  value: string
+  value: string = ''
   constructor (value: string) {
     if (!this.validate(value)) throw Error('Invalid name')
-    this.value = value
   }
 
   private validate (name: string): boolean {
     const nameSanitized = this.removeSpecialChars(name)
     const existName = !!(nameSanitized)
     // eslint-disable-next-line no-empty-character-class
-    const contentSpecialChars = !!(nameSanitized.match(/[0-9_]|\[#$%&"*()_=+@!'?:,{}[]\]/g))
-
-    // console.log('O nome contem char especial:', contentSpecialChars)
+    const contentSpecialChars = !!(nameSanitized.match(/[0-9_]|\[#$%&"*()_=+@!'?:,{}[]\]/gm))
     const contentMinMaxLength = !!((nameSanitized.length >= 5 && nameSanitized.length <= 250))
-    // console.log('Length:', contentMinMaxLength, nameSanitized.length)
     if (existName && !contentSpecialChars && contentMinMaxLength) {
-      // console.log('Nome retornado:', nameSanitized)
       this.value = nameSanitized
       return true
     }
     return false
   }
 
-  private removeSpecialChars (value: string): string {
-    const lowerName = value.trim().toLowerCase()
-    const upperName = value.trim().toUpperCase()
+  private removeSpecialChars (inputName: string): string {
+    const lowerName = inputName.trim().toLowerCase()
+    const upperName = inputName.trim().toUpperCase()
 
-    let res = ''
+    let outputName = ''
     for (let i = 0; i < lowerName.length; ++i) {
       if (lowerName[i] !== upperName[i] || lowerName[i].trim() === '') {
-        res += value[i]
+        outputName += inputName[i]
       }
     }
-    return res
+    return outputName.trim()
   }
 }
