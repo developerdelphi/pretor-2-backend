@@ -115,4 +115,19 @@ describe('AddPersona Controller', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
+
+  test('Deve retornar 200 se validou os dados do request', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'valid_name'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body.data).toEqual({
+      id: 'valid_id',
+      name: 'valid_name'
+    })
+  })
 })
