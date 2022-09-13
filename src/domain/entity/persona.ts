@@ -9,7 +9,9 @@ export interface PersonaContract {
 }
 export class Persona {
   name: Name
-  constructor (name: string) {
+  kind: string
+  constructor (name: string, kind: string = 'F') {
     this.name = new Name(name)
+    this.kind = kind
   }
 }
