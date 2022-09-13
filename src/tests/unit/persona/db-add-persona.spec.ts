@@ -1,8 +1,13 @@
 import { DbAddPersona } from '@/data/usecases/add-persona/db-add-persona'
 
+const makeSut = (): DbAddPersona => {
+  const sut = new DbAddPersona()
+  return sut
+}
+
 describe('DbAddPersona Usecase', () => {
   test('Deve garantir que DbAddPersona foi chamado com valores corretos', async () => {
-    const sut = new DbAddPersona()
+    const sut = makeSut()
     const addPersona = {
       name: 'Valid Name'
     }
