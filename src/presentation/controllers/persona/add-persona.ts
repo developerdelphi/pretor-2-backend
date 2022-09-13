@@ -12,13 +12,15 @@ export class AddPersonaController implements Controller {
         const sendError = new MissingParamError('name')
         return badRequestParam(sendError, 'name')
       }
-      this.addPersona.add({ name: httpRequest.body.name })
+      const persona = this.addPersona.add({ name: httpRequest.body.name })
+      return {
+        statusCode: 200,
+        body: {
+          data: persona
+        }
+      }
     } catch (error) {
       return serverError()
-    }
-    return {
-      statusCode: 500,
-      body: {}
     }
   }
 }
