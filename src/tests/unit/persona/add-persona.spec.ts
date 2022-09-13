@@ -102,4 +102,17 @@ describe('AddPersona Controller', () => {
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({ name: 'valid_name' })
   })
+
+  test('Deve retornar 500 se AddPersona retornar erro', () => {
+    const { sut, addPersonaStub } = makeSut()
+    jest.spyOn(addPersonaStub, 'add').mockImplementationOnce(() => { throw new Error() })
+    const httpRequest = {
+      body: {
+        name: 'any_name'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toBeInstanceOf(ServerError)
+  })
 })
