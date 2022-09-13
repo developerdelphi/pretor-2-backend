@@ -5,14 +5,14 @@ import { NameValidator, Controller, HttpRequest, HttpResponse } from '@/presenta
 
 export class AddPersonaController implements Controller {
   constructor (private readonly nameValidator: NameValidator, private readonly addPersona: AddPersona) {}
-  handle (httpRequest: HttpRequest): HttpResponse {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const isValidName = this.nameValidator.isValid(httpRequest.body.name)
       if (!isValidName) {
         const sendError = new MissingParamError('name')
         return badRequestParam(sendError, 'name')
       }
-      const persona = this.addPersona.add({ name: httpRequest.body.name })
+      const persona = await this.addPersona.add({ name: httpRequest.body.name })
       return success(persona)
     } catch (error) {
       return serverError()

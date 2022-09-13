@@ -23,12 +23,12 @@ const makeNameValidator = (): NameValidator => {
 
 const makeAddPersona = (): AddPersona => {
   class AddPersonaStub implements AddPersona {
-    add (insert: AddPersonaModel): PersonaModel {
+    async add (insert: AddPersonaModel): Promise<PersonaModel> {
       const fakePersona = {
         id: 'valid_id',
         name: 'valid_name'
       }
-      return fakePersona
+      return await new Promise(resolve => resolve(fakePersona))
     }
   }
   return new AddPersonaStub()
@@ -43,19 +43,19 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddPersona Controller', () => {
-  test('Deve retornar 400 se não recebeu parâmetro name', () => {
+  test('Deve retornar 400 se não recebeu parâmetro name', async () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
         cpf: 'valid_cpf'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body.data).toBeInstanceOf(MissingParamError)
   })
 
-  test('Deve retornar 400 se recebeu dados inválidos para parâmetro name', () => {
+  test('Deve retornar 400 se recebeu dados inválidos para parâmetro name', async () => {
     const { sut, nameValidatorStub } = makeSut()
     jest.spyOn(nameValidatorStub, 'isValid').mockReturnValue(false)
     const httpRequest = {
@@ -63,12 +63,12 @@ describe('AddPersona Controller', () => {
         name: ''
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body.data).toBeInstanceOf(MissingParamError)
   })
 
-  test('Deve garantir que chamou o NameValidator com o nome correto', () => {
+  test('Deve garantir que chamou o NameValidator com o nome correto', async () => {
     const { sut, nameValidatorStub } = makeSut()
     const isValidSpy = jest.spyOn(nameValidatorStub, 'isValid')
     const httpRequest = {
@@ -76,11 +76,11 @@ describe('AddPersona Controller', () => {
         name: 'any_name'
       }
     }
-    sut.handle(httpRequest)
+    await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('any_name')
   })
 
-  test('Deve retornar 500 se NameValidator retornar erro', () => {
+  test('Deve retornar 500 se NameValidator retornar erro', async () => {
     const { sut, nameValidatorStub } = makeSut()
     jest.spyOn(nameValidatorStub, 'isValid').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
@@ -88,42 +88,44 @@ describe('AddPersona Controller', () => {
         name: 'any_name'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
 
-  test('Deve chamar AddPersona com valores corretos', () => {
+  test('Deve chamar AddPersona com valores corretos', async () => {
     const { sut, addPersonaStub } = makeSut()
     const addSpy = jest.spyOn(addPersonaStub, 'add')
     const httpRequest = {
       body: { name: 'valid_name' }
     }
-    sut.handle(httpRequest)
+    await sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({ name: 'valid_name' })
   })
 
-  test('Deve retornar 500 se AddPersona retornar erro', () => {
+  test('Deve retornar 500 se AddPersona retornar erro', async () => {
     const { sut, addPersonaStub } = makeSut()
-    jest.spyOn(addPersonaStub, 'add').mockImplementationOnce(() => { throw new Error() })
+    jest.spyOn(addPersonaStub, 'add').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
     const httpRequest = {
       body: {
         name: 'any_name'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toBeInstanceOf(ServerError)
   })
 
-  test('Deve retornar 200 se validou os dados do request', () => {
+  test('Deve retornar 200 se validou os dados do request', async () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
         name: 'valid_name'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.data).toEqual({
       id: 'valid_id',

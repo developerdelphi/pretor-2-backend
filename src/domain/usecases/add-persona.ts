@@ -5,5 +5,5 @@ export interface AddPersonaModel {
 }
 
 export interface AddPersona {
-  add: (insert: AddPersonaModel) => PersonaModel
+  add: (insert: AddPersonaModel) => Promise<PersonaModel>
 }
