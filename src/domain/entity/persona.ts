@@ -1,12 +1,4 @@
 import Name from './name'
-
-export interface PersonaInputData {
-  name: string
-}
-
-export interface PersonaContract {
-  name: string
-}
 export class Persona {
   name: Name
   kind: string
