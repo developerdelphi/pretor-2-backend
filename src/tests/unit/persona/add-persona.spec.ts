@@ -18,14 +18,6 @@ const makeNameValidator = (): NameValidator => {
   return new NameValidatorStub()
 }
 
-const makeNameValidatorWithError = (): NameValidator => {
-  class NameValidatorStub implements NameValidator {
-    isValid (name: string): boolean {
-      throw new Error()
-    }
-  }
-  return new NameValidatorStub()
-}
 const makeSut = (): SutTypes => {
   const nameValidatorStub = makeNameValidator()
   const sut = new AddPersonaController(nameValidatorStub)
@@ -72,8 +64,8 @@ describe('AddPersona Controller', () => {
   })
 
   test('Deve retornar 500 se NameValidator retornar erro', () => {
-    const nameValidatorStub = makeNameValidatorWithError()
-    const sut = new AddPersonaController(nameValidatorStub)
+    const { sut, nameValidatorStub } = makeSut()
+    jest.spyOn(nameValidatorStub, 'isValid').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
       body: {
         name: 'any_name'
