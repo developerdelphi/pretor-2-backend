@@ -1,9 +1,6 @@
 import { PersonaModel } from '../models/persona'
-
-export interface AddPersonaModel {
-  name: string
-}
+import InputPersonaData from '../protocols/persona-protocols'
 
 export interface AddPersona {
-  add: (insert: AddPersonaModel) => Promise<PersonaModel>
+  add: (insert: InputPersonaData) => Promise<PersonaModel>
 }

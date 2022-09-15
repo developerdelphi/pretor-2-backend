@@ -1,5 +1,6 @@
 import { PersonaModel } from '@/domain/models/persona'
-import { AddPersona, AddPersonaModel } from '@/domain/usecases/add-persona'
+import InputPersonaData from '@/domain/protocols/persona-protocols'
+import { AddPersona } from '@/domain/usecases/add-persona'
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { NameValidator } from '@/presentation/protocols'
@@ -23,10 +24,11 @@ const makeNameValidator = (): NameValidator => {
 
 const makeAddPersona = (): AddPersona => {
   class AddPersonaStub implements AddPersona {
-    async add (insert: AddPersonaModel): Promise<PersonaModel> {
+    async add (insert: InputPersonaData): Promise<PersonaModel> {
       const fakePersona = {
         id: 'valid_id',
-        name: 'valid_name'
+        name: 'valid_name',
+        kind: 'valid_kind'
       }
       return await new Promise(resolve => resolve(fakePersona))
     }
@@ -122,14 +124,16 @@ describe('AddPersona Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'valid_name'
+        name: 'valid_name',
+        kind: 'valid_kind'
       }
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.data).toEqual({
       id: 'valid_id',
-      name: 'valid_name'
+      name: 'valid_name',
+      kind: 'valid_kind'
     })
   })
 })

@@ -12,7 +12,7 @@ export class AddPersonaController implements Controller {
         const sendError = new MissingParamError('name')
         return badRequestParam(sendError, 'name')
       }
-      const persona = await this.addPersona.add({ name: httpRequest.body.name })
+      const persona = await this.addPersona.add({ name: httpRequest.body.name, kind: httpRequest.body.kind })
       return success(persona)
     } catch (error) {
       return serverError()
