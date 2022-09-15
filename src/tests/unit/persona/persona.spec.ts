@@ -1,7 +1,9 @@
 import Address from '@/domain/entity/address'
+import Document from '@/domain/entity/document'
 import { Persona } from '@/domain/entity/persona'
 import Phone from '@/domain/entity/phone'
 import { inputAddressData } from '@/domain/protocols/address-protocols'
+import { InputDocument } from '@/domain/protocols/document-protocols'
 import InputPersonaData from '@/domain/protocols/persona-protocols'
 import { InputPhone } from '@/domain/protocols/phone-protocols'
 
@@ -55,5 +57,17 @@ describe('Persona Entity', () => {
     }
     sut.addPhone(new Phone(phone.personaId, phone.number, phone.status))
     expect(sut.phone[0]).toEqual(phone)
+  })
+
+  test('Deve criar uma nova pessoa e adicionar Documento', () => {
+    const input = { name: 'valid name', kind: 'F' }
+    const doc: InputDocument = {
+      type: 'valid_type',
+      identifier: 'valid_identifier',
+      status: 'valid_status'
+    }
+    const sut = new Persona(input)
+    sut.addDocument(new Document(doc.type, doc.identifier, doc.status))
+    expect(sut.document[0]).toEqual(doc)
   })
 })
