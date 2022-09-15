@@ -1,5 +1,6 @@
 import InputPersonaData from '../protocols/persona-protocols'
 import Address from './address'
+import Document from './document'
 import Name from './name'
 import Phone from './phone'
 export class Persona {
@@ -7,6 +8,7 @@ export class Persona {
   kind: string
   address: Address[] = []
   phone: Phone[] = []
+  document: Document[] = []
 
   constructor (input: InputPersonaData) {
     this.name = new Name(input.name)
@@ -19,5 +21,9 @@ export class Persona {
 
   addPhone (phone: Phone): void {
     this.phone.push(phone)
+  }
+
+  addDocument (document: Document): void {
+    this.document.push(document)
   }
 }
