@@ -1,4 +1,6 @@
+import Address from '@/domain/entity/address'
 import { Persona } from '@/domain/entity/persona'
+import { inputAddressData } from '@/domain/protocols/address-protocols'
 import InputPersonaData from '@/domain/protocols/persona-protocols'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
@@ -17,9 +19,27 @@ describe('Persona Entity', () => {
     const persona = new Persona(input)
     expect(persona.name.value).toBe('valid name')
   })
+
   test('Deve criar uma pessoa como pessoa física', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = new Persona(input)
     expect(sut.kind).toEqual('F')
+  })
+
+  test('Deve criar uma pessoa com endereço', () => {
+    const input = { name: 'valid name', kind: 'F' }
+    const sut = new Persona(input)
+    const address: inputAddressData = {
+      personaId: 1,
+      street: 'Rua Principal',
+      number: 'sn',
+      complement: 'Qd. 04, Lt. 12',
+      district: 'Centro',
+      cep: '75100-100',
+      city: 'Sossego',
+      uf: 'GO'
+    }
+    sut.addAddress(new Address(address))
+    expect(sut.address).toHaveLength(1)
   })
 })
