@@ -1,7 +1,9 @@
 import Address from '@/domain/entity/address'
 import { Persona } from '@/domain/entity/persona'
+import Phone from '@/domain/entity/phone'
 import { inputAddressData } from '@/domain/protocols/address-protocols'
 import InputPersonaData from '@/domain/protocols/persona-protocols'
+import { InputPhone } from '@/domain/protocols/phone-protocols'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
   const sut = new Persona(inputPersonaData)
@@ -26,7 +28,7 @@ describe('Persona Entity', () => {
     expect(sut.kind).toEqual('F')
   })
 
-  test('Deve criar uma pessoa com endereço', () => {
+  test('Deve criar uma pessoa e adicionar endereço', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = new Persona(input)
     const address: inputAddressData = {
@@ -41,5 +43,17 @@ describe('Persona Entity', () => {
     }
     sut.addAddress(new Address(address.personaId, address.street, address.number, address.complement, address.district, address.cep, address.city, address.uf))
     expect(sut.address).toHaveLength(1)
+  })
+
+  test('Deve criar uma pessoa e adicionar telefone', () => {
+    const input = { name: 'valid name', kind: 'F' }
+    const sut = new Persona(input)
+    const phone: InputPhone = {
+      personaId: 1,
+      number: 'valid_number',
+      status: 'valid_status'
+    }
+    sut.addPhone(new Phone(phone.personaId, phone.number, phone.status))
+    expect(sut.phone[0]).toEqual(phone)
   })
 })
