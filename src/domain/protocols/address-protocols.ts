@@ -7,6 +7,7 @@ export interface Address {
   city: string
   uf: string
 }
+
 export interface inputAddressData {
   readonly personaId: number
   street: string
