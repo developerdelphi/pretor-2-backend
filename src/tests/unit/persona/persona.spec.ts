@@ -65,7 +65,7 @@ describe('Persona Entity', () => {
       status: 'valid_status'
     }
     const sut = new Persona('1', input.name, input.kind)
-    sut.addDocument(new Document(doc.type, doc.identifier, doc.status))
-    expect(sut.document[0]).toEqual(doc)
+    sut.addDocument(new Document('1', doc.type, doc.identifier, doc.status))
+    expect(sut.document[0]).toEqual({ documentId: '1', ...doc })
   })
 })

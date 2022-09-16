@@ -8,7 +8,8 @@ describe('Document Entity', () => {
       identifier: 'valid_identifier',
       status: 'valid_status'
     }
-    const sut = new Document(input.type, input.identifier, input.status)
+    const sut = new Document('1', input.type, input.identifier, input.status)
+    expect(sut).toHaveProperty('documentId', '1')
     expect(sut).toHaveProperty('type', 'valid_type')
     expect(sut).toHaveProperty('identifier', 'valid_identifier')
     expect(sut).toHaveProperty('status', 'valid_status')
