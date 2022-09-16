@@ -1,5 +1,4 @@
-export interface InputPhone {
-  personaId: number
+export interface InputPhoneData {
   number: string
   status: string
 }
