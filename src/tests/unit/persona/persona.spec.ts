@@ -53,8 +53,8 @@ describe('Persona Entity', () => {
       number: 'valid_number',
       status: 'valid_status'
     }
-    sut.addPhone(new Phone(phone.number, phone.status))
-    expect(sut.phone[0]).toEqual(phone)
+    sut.addPhone(new Phone('1', phone.number, phone.status))
+    expect(sut.phone[0]).toEqual({ phoneId: '1', ...phone })
   })
 
   test('Deve criar uma nova pessoa e adicionar Documento', () => {

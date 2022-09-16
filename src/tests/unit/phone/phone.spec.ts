@@ -7,7 +7,7 @@ describe('Phone Entity', () => {
       number: 'valid_number',
       status: 'valid_status'
     }
-    const sut = new Phone(input.number, input.status)
+    const sut = new Phone('1', input.number, input.status)
     expect(sut).toHaveProperty('number', 'valid_number')
     expect(sut).toHaveProperty('status', 'valid_status')
   })

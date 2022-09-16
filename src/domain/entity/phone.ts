@@ -1,3 +1,3 @@
 export default class Phone {
-  constructor (readonly number: string, readonly status: string = 'active') {}
+  constructor (readonly phoneId: string, readonly number: string, readonly status: string = 'active') {}
 }
