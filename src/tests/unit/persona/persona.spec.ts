@@ -8,7 +8,7 @@ import InputPersonaData from '@/domain/protocols/persona-protocols'
 import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
-  const sut = new Persona(inputPersonaData)
+  const sut = new Persona(inputPersonaData.name, inputPersonaData.kind)
   return sut
 }
 
@@ -20,19 +20,19 @@ describe('Persona Entity', () => {
 
   test('Deve cadastrar uma pessoa com um nome válido', () => {
     const input = { name: 'valid name', kind: 'F' }
-    const persona = new Persona(input)
-    expect(persona.name.value).toBe('valid name')
+    const persona = new Persona(input.name, input.kind)
+    expect(persona.name).toBe('valid name')
   })
 
   test('Deve criar uma pessoa como pessoa física', () => {
     const input = { name: 'valid name', kind: 'F' }
-    const sut = new Persona(input)
+    const sut = new Persona(input.name, input.kind)
     expect(sut.kind).toEqual('F')
   })
 
   test('Deve criar uma pessoa e adicionar endereço', () => {
     const input = { name: 'valid name', kind: 'F' }
-    const sut = new Persona(input)
+    const sut = new Persona(input.name, input.kind)
     const address: inputAddressData = {
       street: 'Rua Principal',
       number: 'sn',
@@ -48,7 +48,7 @@ describe('Persona Entity', () => {
 
   test('Deve criar uma pessoa e adicionar telefone', () => {
     const input = { name: 'valid name', kind: 'F' }
-    const sut = new Persona(input)
+    const sut = new Persona(input.name, input.kind)
     const phone: InputPhoneData = {
       number: 'valid_number',
       status: 'valid_status'
@@ -58,13 +58,13 @@ describe('Persona Entity', () => {
   })
 
   test('Deve criar uma nova pessoa e adicionar Documento', () => {
-    const input = { name: 'valid name', kind: 'F' }
+    const input: InputPersonaData = { name: 'valid name', kind: 'F' }
     const doc: InputDocument = {
       type: 'valid_type',
       identifier: 'valid_identifier',
       status: 'valid_status'
     }
-    const sut = new Persona(input)
+    const sut = new Persona(input.name, input.kind)
     sut.addDocument(new Document(doc.type, doc.identifier, doc.status))
     expect(sut.document[0]).toEqual(doc)
   })
