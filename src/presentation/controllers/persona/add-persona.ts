@@ -1,4 +1,4 @@
-import { AddPersona } from '@/domain/usecases/add-persona'
+import { AddPersona } from '@/application/usecases/add-persona'
 import { MissingParamError } from '@/presentation/errors'
 import { badRequestParam, serverError, success } from '@/presentation/helpers'
 import { NameValidator, Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'

@@ -1,6 +1,6 @@
 import { PersonaModel } from '@/domain/models/persona'
 import InputPersonaData from '@/domain/protocols/persona-protocols'
-import { AddPersona } from '@/domain/usecases/add-persona'
+import { AddPersona } from '@/application/usecases/add-persona'
 
 export class DbAddPersona implements AddPersona {
   async add (insert: InputPersonaData): Promise<PersonaModel> {
