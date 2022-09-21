@@ -1,5 +1,5 @@
 import { DbAddPersona } from '@/data/usecases/add-persona/db-add-persona'
-import InputPersonaData from '@/domain/protocols/persona-protocols'
+import { InputPersonaData } from '@/domain/protocols'
 
 const makeSut = (): DbAddPersona => {
   const sut = new DbAddPersona()

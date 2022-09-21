@@ -2,10 +2,7 @@ import Address from '@/domain/entity/address'
 import Document from '@/domain/entity/document'
 import { Persona } from '@/domain/entity/persona'
 import Phone from '@/domain/entity/phone'
-import { inputAddressData } from '@/domain/protocols/address-protocols'
-import { InputDocument } from '@/domain/protocols/document-protocols'
-import InputPersonaData from '@/domain/protocols/persona-protocols'
-import { InputPhoneData } from '@/domain/protocols/phone-protocols'
+import { inputAddressData, InputDocument, InputPhoneData, InputPersonaData } from '@/domain/protocols'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
   const sut = new Persona('1', inputPersonaData.name, inputPersonaData.kind)

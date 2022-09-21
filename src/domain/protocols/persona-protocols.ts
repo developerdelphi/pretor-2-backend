@@ -1,4 +1,4 @@
-export default interface InputPersonaData {
+export interface InputPersonaData {
   name: string
   kind: string
 }
