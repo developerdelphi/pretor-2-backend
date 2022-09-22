@@ -11,11 +11,7 @@ export class AddPersona {
   constructor (readonly personaRepository: PersonaRepository) {}
   async execute (insert: InputPersonaData): Promise<PersonaModel> {
     const persona = new Persona('valid_id', insert.name, insert.kind)
-    await this.personaRepository.create(persona)
-    return await Promise.resolve({
-      id: 'valid_id',
-      name: insert.name,
-      kind: insert.kind
-    })
+    const personaCreated = await this.personaRepository.create(persona)
+    return personaCreated
   }
 }
