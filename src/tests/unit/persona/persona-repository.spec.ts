@@ -2,16 +2,16 @@ import { PersonaRepository } from '@/application/protocols/persona-repository'
 import { InputPersonaData } from '@/domain/protocols'
 
 const makeSut = (): PersonaRepository => {
-  class PersonaRepositoryStub implements PersonaRepository {
+  class PersonaRepositoryPgGresStub implements PersonaRepository {
     async create (data: InputPersonaData): Promise<void> {
 
     }
   }
 
-  return new PersonaRepositoryStub()
+  return new PersonaRepositoryPgGresStub()
 }
 
-describe('Persona Repository', () => {
+describe('Persona RepositoryPgGres', () => {
   test('Deve garantir que o Repositório recebeu as atributos obrigatórios da classe', async () => {
     const sut = makeSut()
     const createSpy = jest.spyOn(sut, 'create')
