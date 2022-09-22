@@ -12,7 +12,7 @@
     "test:ci": "yarn test -- --coverage",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "lint": "eslint .",
-    "lint:fix": "yarn lint -- --fix",
+    "lint:fix": "yarn lint --fix",
     "prepare": "husky install",
     "main": "tsc && node ./dist/main"
   },
@@ -42,6 +42,5 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.0",
     "typescript": "*"
-  },
-  "type":"module"
+  }
 }
