@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "yarn lint --fix",
     "prepare": "husky install",
-    "main": "tsc && node ./dist/main"
+    "main": "tsc && node ./dist/main --trace-warnings"
   },
   "dependencies": {
     "express": "^4.18.1",
@@ -42,5 +42,6 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.0",
     "typescript": "*"
-  }
+  },
+  "type": "module"
 }
