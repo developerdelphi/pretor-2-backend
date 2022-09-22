@@ -12,7 +12,7 @@ interface SutReturn {
   connection: Connection
 }
 const makesut = (): SutReturn => {
-  const connection = new PgPromiseConnectionAdapter()
+  const connection = PgPromiseConnectionAdapter.getInstance()
   const personaRepository = new PersonaRepositoryDatabase(connection)
   const addPersona = new AddPersona(personaRepository)
 

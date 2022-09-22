@@ -2,7 +2,7 @@ import PgPromiseConnectionAdapter from '@/infra/database/pgpromise-connection-ad
 
 describe('Conexão com Banco de Dados', () => {
   test('Deve criar uma conexão com o banco de dados', async () => {
-    const connection = new PgPromiseConnectionAdapter()
+    const connection = PgPromiseConnectionAdapter.getInstance()
     const resp = await connection.query('select true', [])
     expect(resp).toBeTruthy()
   })
