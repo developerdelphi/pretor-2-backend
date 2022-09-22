@@ -3,9 +3,17 @@ import pgp from 'pg-promise'
 
 export default class PgPromiseConnectionAdapter implements Connection {
   pgp: any
+  static instance: PgPromiseConnectionAdapter
 
-  constructor () {
+  private constructor () {
     this.pgp = pgp()('postgres://postgres:docker@localhost:5432/pretor')
+  }
+
+  static getInstance (): PgPromiseConnectionAdapter {
+    if (!PgPromiseConnectionAdapter.instance) {
+      PgPromiseConnectionAdapter.instance = new PgPromiseConnectionAdapter()
+    }
+    return PgPromiseConnectionAdapter.instance
   }
 
   async query (statement: string, params: any[]): Promise<any> {
