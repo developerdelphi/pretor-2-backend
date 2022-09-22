@@ -16,7 +16,7 @@ describe('DbAddPersona Usecase', () => {
 
     const result = await sut.add(addPersona)
     const fakeResult = {
-      id: 'valid_id',
+      persona_id: 'valid_id',
       name: 'Valid Name',
       kind: 'valid_kind'
     }
@@ -32,7 +32,7 @@ describe('DbAddPersona Usecase', () => {
 
     const result = await sut.add(addPersona)
     const fakeResult = {
-      id: 'valid_id',
+      persona_id: 'valid_id',
       name: 'Valid Name',
       kind: 'valid_kind'
     }

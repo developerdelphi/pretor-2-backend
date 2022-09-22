@@ -26,7 +26,7 @@ const makeAddPersona = (): IAddPersona => {
   class AddPersonaStub implements IAddPersona {
     async add (insert: InputPersonaData): Promise<PersonaModel> {
       const fakePersona = {
-        id: 'valid_id',
+        persona_id: 'valid_id',
         name: 'valid_name',
         kind: 'valid_kind'
       }
@@ -131,7 +131,7 @@ describe('AddPersona Controller', () => {
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.data).toEqual({
-      id: 'valid_id',
+      persona_id: 'valid_id',
       name: 'valid_name',
       kind: 'valid_kind'
     })
