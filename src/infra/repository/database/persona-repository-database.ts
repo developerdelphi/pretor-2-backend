@@ -7,7 +7,7 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
   constructor (readonly connection: Connection) {}
 
   async create (persona: Persona): Promise<PersonaModel> {
-    const [personaData] = await this.connection.query('insert into pretor.persona (name, kind) values ($1, $2) returning *', [persona.name, persona.kind])
+    const [personaData] = await this.connection.query('insert into persona (name, kind) values ($1, $2) returning *', [persona.name, persona.kind])
     const personaModel: PersonaModel = {
       persona_id: personaData.persona_id,
       name: personaData.name,
