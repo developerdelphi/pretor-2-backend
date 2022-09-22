@@ -1,9 +1,9 @@
 import { PersonaRepository } from '@/domain/repository/persona-repository'
-import { InputPersonaData } from '@/domain/protocols'
+import { Persona } from '@/domain/entity/persona'
 
 const makeSut = (): PersonaRepository => {
   class PersonaRepositoryPgGresStub implements PersonaRepository {
-    async create (data: InputPersonaData): Promise<void> {
+    async create (data: Persona): Promise<void> {
 
     }
   }
@@ -11,16 +11,13 @@ const makeSut = (): PersonaRepository => {
   return new PersonaRepositoryPgGresStub()
 }
 
-describe('Persona RepositoryPgGres', () => {
+describe('Persona RepositoryPGres', () => {
   test('Deve garantir que o Repositório recebeu as atributos obrigatórios da classe', async () => {
     const sut = makeSut()
     const createSpy = jest.spyOn(sut, 'create')
-    const insertPersona: InputPersonaData = {
-      name: 'any_name',
-      kind: 'F'
-    }
+    const persona = new Persona('', 'any_name', 'F')
 
-    await sut.create(insertPersona)
-    expect(createSpy).toHaveBeenCalledWith({ name: 'any_name', kind: 'F' })
+    await sut.create(persona)
+    expect(createSpy).toHaveBeenCalledWith(persona)
   })
 })
