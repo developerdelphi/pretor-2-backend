@@ -1,3 +1,4 @@
+import { Persona } from '../entity/persona'
 export interface PersonaRepository {
-  create: (data: any) => Promise<void>
+  create: (persona: Persona) => Promise<void>
 }

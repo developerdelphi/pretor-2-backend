@@ -1,8 +1,8 @@
-import { PersonaRepository } from '@/application/protocols/persona-repository'
-import { InputPersonaData } from '@/domain/protocols'
+import { Persona } from '@/domain/entity/persona'
+import { PersonaRepository } from '@/domain/repository/persona-repository'
 
 export class PersonaRepositoryPostGres implements PersonaRepository {
-  async create (data: InputPersonaData): Promise<void> {
+  async create (persona: Persona): Promise<void> {
     return await new Promise(resolve => (resolve()))
   }
 }
