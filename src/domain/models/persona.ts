@@ -1,6 +1,6 @@
 import { Address, IDocument, IPhone } from '@/domain/protocols'
 export interface PersonaModel {
-  id: string
+  persona_id: string
   name: string
   kind: string
   address?: Address

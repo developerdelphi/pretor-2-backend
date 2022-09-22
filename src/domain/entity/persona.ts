@@ -10,7 +10,7 @@ export class Persona {
   name: string
   kind: string
 
-  constructor (private readonly pessoaId: string, name: string, kind: string) {
+  constructor (private readonly pessoa_id: string, name: string, kind: string) {
     this.name = new Name(name).value
     this.kind = kind
   }
