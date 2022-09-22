@@ -8,7 +8,7 @@ export interface Address {
   uf: string
 }
 
-export interface inputAddressData {
+export interface InputAddressData {
   street: string
   number: string
   complement?: string
