@@ -7,10 +7,10 @@ export interface IAddPersona {
 
 export class AddPersona {
   async add (insert: InputPersonaData): Promise<PersonaModel> {
-    return {
+    return await Promise.resolve({
       id: 'id',
       name: 'name',
       kind: 'kind'
-    }
+    })
   }
 }
