@@ -1,6 +1,6 @@
 import '../config/module-alias'
 
-import Persona from '@/domain/entity/persona'
+import { Persona } from '@/domain/entity/persona'
 
-const p = new Persona()
+const p = new Persona('', '', '')
 console.log(p)
