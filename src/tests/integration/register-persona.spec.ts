@@ -3,8 +3,9 @@ import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
 import PgPromiseConnectionAdapter from '@/infra/database/pgpromise-connection-adapter'
+import DatabaseRepositoyFactory from '@/infra/factory/database-repository-factory'
+import MemoryRepositoryFactory from '@/infra/factory/memory-database-factory'
 import PersonaRepositoryDatabase from '@/infra/repository/database/persona-repository-database'
-import PersonaRepositoryMemory from '@/infra/repository/memory/persona-repository-memory'
 
 interface SutReturn {
   addPersona: AddPersona
@@ -14,14 +15,15 @@ interface SutReturn {
 const makesut = (): SutReturn => {
   const connection = PgPromiseConnectionAdapter.getInstance()
   const personaRepository = new PersonaRepositoryDatabase(connection)
-  const addPersona = new AddPersona(personaRepository)
+  const repositoryFactory = new DatabaseRepositoyFactory()
+  const addPersona = new AddPersona(repositoryFactory)
 
   return { addPersona, personaRepository, connection }
 }
 describe('Registrar uma Pessoa - UseCase', () => {
   test('Deve registrar uma pessoa no sistema em memória', async () => {
-    const personaRepository = new PersonaRepositoryMemory()
-    const addPersona = new AddPersona(personaRepository)
+    const repositoryFactory = new MemoryRepositoryFactory()
+    const addPersona = new AddPersona(repositoryFactory)
     const input: InputPersonaData = {
       name: 'Valid Name',
       kind: 'F',
