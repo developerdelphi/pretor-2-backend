@@ -1,4 +1,4 @@
-import { PersonaRepository } from '@/application/protocols/persona-repository'
+import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { InputPersonaData } from '@/domain/protocols'
 
 const makeSut = (): PersonaRepository => {

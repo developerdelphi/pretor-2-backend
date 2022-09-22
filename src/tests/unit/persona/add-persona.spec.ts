@@ -1,6 +1,6 @@
 import { PersonaModel } from '@/domain/models/persona'
 import { InputPersonaData } from '@/domain/protocols/persona-protocols'
-import { AddPersona, IAddPersona } from '@/application/usecases/add-persona'
+import { IAddPersona } from '@/application/usecases/add-persona'
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { NameValidator } from '@/presentation/protocols'
@@ -8,7 +8,7 @@ import { NameValidator } from '@/presentation/protocols'
 interface SutTypes {
   sut: AddPersonaController
   nameValidatorStub: NameValidator
-  addPersonaStub: AddPersona
+  addPersonaStub: IAddPersona
 }
 
 const makeNameValidator = (): NameValidator => {
@@ -22,7 +22,7 @@ const makeNameValidator = (): NameValidator => {
   return new NameValidatorStub()
 }
 
-const makeAddPersona = (): AddPersona => {
+const makeAddPersona = (): IAddPersona => {
   class AddPersonaStub implements IAddPersona {
     async add (insert: InputPersonaData): Promise<PersonaModel> {
       const fakePersona = {

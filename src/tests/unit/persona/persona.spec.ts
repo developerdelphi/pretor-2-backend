@@ -2,7 +2,7 @@ import Address from '@/domain/entity/address'
 import Document from '@/domain/entity/document'
 import { Persona } from '@/domain/entity/persona'
 import Phone from '@/domain/entity/phone'
-import { inputAddressData, InputDocument, InputPhoneData, InputPersonaData } from '@/domain/protocols'
+import { InputAddressData, InputDocument, InputPhoneData, InputPersonaData } from '@/domain/protocols'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
   const sut = new Persona('1', inputPersonaData.name, inputPersonaData.kind)
@@ -30,7 +30,7 @@ describe('Persona Entity', () => {
   test('Deve criar uma pessoa e adicionar endereço', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = new Persona('1', input.name, input.kind)
-    const address: inputAddressData = {
+    const address: InputAddressData = {
       street: 'Rua Principal',
       number: 'sn',
       complement: 'Qd. 04, Lt. 12',
