@@ -15,8 +15,8 @@ app.post('/persona', async function (req, res) {
     name: req.body.name,
     kind: req.body.kind
   }
-  const output = await addPersona.execute(input)
-  res.end(output)
+  await addPersona.execute(input)
+  res.end()
 })
 
 app.listen(3000)
