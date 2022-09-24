@@ -1,6 +1,6 @@
-import { InputAddressData } from '../protocols'
+import { IAddress, InputAddressData } from '../protocols'
 
-export default class Address {
+export default class Address implements IAddress {
   addressId: number
   street: string
   number: string
@@ -10,7 +10,7 @@ export default class Address {
   city: string
   uf: string
   status: string
-  // constructor(addressId: number, street: string, district: string, cep: string, city: string, uf: string, number?: string, complement?: string, status?: string)
+
   constructor (input: InputAddressData) {
     this.addressId = input.addressId ?? 0
     this.street = this.validateField('street', input.street)
