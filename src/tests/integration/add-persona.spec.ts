@@ -12,7 +12,7 @@ interface SutReturn {
   personaRepository: PersonaRepository
   connection: Connection
 }
-const makesut = (): SutReturn => {
+const makeSut = (): SutReturn => {
   const connection = PgPromiseConnectionAdapter.getInstance()
   const personaRepository = new PersonaRepositoryDatabase(connection)
   const repositoryFactory = new DatabaseRepositoyFactory()
@@ -52,7 +52,7 @@ describe('Registrar uma Pessoa - UseCase', () => {
   })
 
   test('Deve registrar uma pessoa no sistema em database', async () => {
-    const { addPersona } = makesut()
+    const { addPersona } = makeSut()
     const input: InputPersonaData = {
       name: 'Valid Name',
       kind: 'F',
@@ -80,4 +80,24 @@ describe('Registrar uma Pessoa - UseCase', () => {
     expect(newPersona).toHaveProperty('persona_id')
     expect(newPersona.persona_id).toBeGreaterThan(0)
   })
+
+  // test('Deve registrar uma pessoa com um endereço', async () => {
+  //   const { addPersona } = makeSut()
+  //   const input: InputPersonaData = {
+  //     name: 'Valid Name',
+  //     kind: 'F',
+  //     address: [{
+  //       street: 'Rua Principal',
+  //       number: '123',
+  //       complement: 'Qd. 01, Lt. 02, Casa 03',
+  //       district: 'Centro',
+  //       cep: '75000-000',
+  //       city: 'Anápolis',
+  //       uf: 'GO'
+  //     }]
+
+  //   }
+  //   const newPersona = await addPersona.execute(input)
+  //   expect(newPersona.address).toEqual(input.address)
+  // })
 })
