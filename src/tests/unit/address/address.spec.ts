@@ -1,9 +1,10 @@
 import Address from '@/domain/entity/address'
+import { InputAddressData } from '@/domain/protocols'
 // import { inputAddressData } from '@/domain/protocols/address-protocols'
 
 describe('Entidade Address', () => {
   it('Deve garantir criar uma nova instancia de endereço ', () => {
-    const input = {
+    const input: InputAddressData = {
       addressId: 1,
       street: 'valid_street',
       number: 'valid_number',
@@ -13,7 +14,7 @@ describe('Entidade Address', () => {
       city: 'valid_city',
       uf: 'valid_uf'
     }
-    const sut = new Address(input.addressId, input.street, input.number, input.complement, input.district, input.cep, input.city, input.uf)
+    const sut = new Address(input)
     expect(sut).toHaveProperty('addressId', 1)
     expect(sut).toHaveProperty('street', 'valid_street')
     expect(sut).toHaveProperty('number', 'valid_number')

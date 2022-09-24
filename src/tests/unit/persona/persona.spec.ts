@@ -30,7 +30,7 @@ describe('Persona Entity', () => {
   test('Deve criar uma pessoa e adicionar endereço', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = new Persona('1', input.name, input.kind)
-    const address: InputAddressData = {
+    const inputAddress: InputAddressData = {
       street: 'Rua Principal',
       number: 'sn',
       complement: 'Qd. 04, Lt. 12',
@@ -39,7 +39,7 @@ describe('Persona Entity', () => {
       city: 'Sossego',
       uf: 'GO'
     }
-    sut.addAddress(new Address(1, address.street, address.number, address.complement, address.district, address.cep, address.city, address.uf))
+    sut.addAddress(new Address(inputAddress))
     expect(sut.address).toHaveLength(1)
   })
 
