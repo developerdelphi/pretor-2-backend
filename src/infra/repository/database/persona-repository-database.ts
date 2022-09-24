@@ -11,7 +11,8 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
     const personaModel: PersonaModel = {
       persona_id: personaData.persona_id,
       name: personaData.name,
-      kind: personaData.kind
+      kind: personaData.kind,
+      address: personaData.address
     }
     return personaModel
   }
