@@ -3,7 +3,7 @@ import InvalidEmailError from '../error/invalid-email-error'
 export class Email {
   private readonly email: string
 
-  constructor (email: string) {
+  private constructor (email: string) {
     this.email = email
     Object.freeze(this)
   }
@@ -21,6 +21,6 @@ export class Email {
   }
 
   get value (): string {
-    return this.value
+    return this.email
   }
 }
