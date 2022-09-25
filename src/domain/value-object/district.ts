@@ -25,6 +25,7 @@ export class District implements IDistrict {
 
   static isValid (district: string): boolean {
     if (!district) return false
+    if (district.length < 2) return false
     return true
   }
 }

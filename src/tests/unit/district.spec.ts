@@ -12,4 +12,10 @@ describe('District Value Object', () => {
     const district = District.create(districtInput)
     expect(district.value).toBeInstanceOf(InvalidDistrictError)
   })
+
+  test('Não Deve criar um bairro com string menor 2 caracteres', () => {
+    const districtInput = 'n'
+    const district = District.create(districtInput)
+    expect(district.value).toBeInstanceOf(InvalidDistrictError)
+  })
 })
