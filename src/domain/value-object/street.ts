@@ -1,5 +1,5 @@
-import { InvalidParamError } from '@/presentation/errors'
 import { Either, left, right } from '@/shared/either'
+import InvalidStreetError from '../error/invalid-street-error'
 
 export class Street {
   private readonly street: string
@@ -9,10 +9,10 @@ export class Street {
     Object.freeze(this)
   }
 
-  static create (street: string): Either<InvalidParamError, Street> {
+  static create (street: string): Either<InvalidStreetError, Street> {
     street = street.trim()
     if (!Street.isValid(street)) {
-      return left(new InvalidParamError('street', 'Logradouro é obrigatório'))
+      return left(new InvalidStreetError(street))
     }
     return right(new Street(street))
   }
