@@ -19,8 +19,16 @@ describe('Street Value Object', () => {
     expect(sut.value).toBeInstanceOf(InvalidParamError)
   })
 
+  test('Não deve criar se endereço informado não contiver um logradouro válido no início da string', () => {
+    const streetInput = 'Vai e Vem'
+    const sut: Either<InvalidParamError, Street> = Street.create(streetInput)
+    expect(sut.isLeft()).toBeTruthy()
+    expect(sut).toBeInstanceOf(Left)
+    expect(sut.value).toBeInstanceOf(InvalidParamError)
+  })
+
   test('Deve criar um Street com endereço válido', () => {
-    const streetInput = 'Rua vai e vem'
+    const streetInput = 'Rua A'
     const sut: Either<InvalidParamError, Street> = Street.create(streetInput)
     expect(sut.isRight()).toBeTruthy()
     expect(sut).toBeInstanceOf(Right)
