@@ -11,7 +11,9 @@ export class Street {
 
   static create (street: string): Either<InvalidParamError, Street> {
     street = street.trim()
-    if (!Street.isValid(street)) return left(new InvalidParamError('street', 'Logradouro é obrigatório'))
+    if (!Street.isValid(street)) {
+      return left(new InvalidParamError('street', 'Logradouro é obrigatório'))
+    }
     return right(new Street(street))
   }
 
