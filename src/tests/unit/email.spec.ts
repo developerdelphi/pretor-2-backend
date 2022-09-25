@@ -74,7 +74,6 @@ describe('Email Value Object', () => {
   test('Deve criar um email com endereço válido', () => {
     const emailData = 'valid-email123@mail.com.br'
     const email: Either<InvalidEmailError, Email> = Email.create(emailData)
-    console.log(email.value)
     expect(email.isRight()).toBeTruthy()
     expect(email).toBeInstanceOf(Right)
     expect(email.value).toBeInstanceOf(Email)
