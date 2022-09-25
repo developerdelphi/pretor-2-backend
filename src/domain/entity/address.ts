@@ -1,8 +1,11 @@
+import { Either, left, right } from '@/shared/either'
+import InvalidParamError from '../error/invalid-param-error'
 import { IAddress, InputAddressData } from '../protocols'
+import { Street } from '../value-object/street'
 
 export default class Address implements IAddress {
   addressId: number
-  street: string
+  public readonly street: Street
   number: string
   complement: string
   district: string
@@ -11,16 +14,26 @@ export default class Address implements IAddress {
   uf: string
   status: string
 
-  constructor (input: InputAddressData) {
-    this.addressId = input.addressId ?? 0
-    this.street = this.validateField('street', input.street)
-    this.district = this.validateField('district', input.district)
-    this.cep = this.validateField('cep', input.cep)
-    this.city = this.validateField('city', input.city)
-    this.uf = this.validateField('uf', input.uf)
-    this.number = input.number?.trim() ?? ''
-    this.complement = input.complement?.trim() ?? ''
-    this.status = input.status?.trim() ?? ''
+  private constructor (street: Street) {
+    this.addressId = 0
+    this.street = street
+    this.district = ''
+    this.cep = ''
+    this.city = ''
+    this.uf = ''
+    this.number = ''
+    this.complement = ''
+    this.status = ''
+    Object.freeze(this)
+  }
+
+  static create (addressData: InputAddressData): Either<InvalidParamError, IAddress> {
+    const streetOrError: Either<InvalidParamError, Street> = Street.create(addressData.street)
+    if (streetOrError.isLeft()) {
+      return left(streetOrError.value)
+    }
+    const street: Street = streetOrError.value
+    return right(new Address(street))
   }
 
   validateField (field: string, value: string): string {
