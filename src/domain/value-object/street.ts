@@ -18,6 +18,13 @@ export class Street {
   static isValid (street: string): boolean {
     if (!street) return false
     if (street.trim().length <= 3) return false
+
+    const listOfPublicPlaces = /^(?:^|(?<= ))(aeroporto|alameda|área|avenida|campo|chácara|colônia|condomínio|conjunto|distrito|esplanada|estação|estrada|favela|fazenda|feira|jardim|ladeira|lago|lagoa|largo|loteamento|morro|núcleo|parque|passarela|pátio|praça|quadra|recanto|residencial|rodovia|rua|setor|sítio|travessa|trecho|trevo|vale|vereda|via|viaduto|viela|vila)(?:(?= )|$)/gi
+
+    const isPublicPlace = listOfPublicPlaces.test(street)
+
+    if (!isPublicPlace) return false
+
     return true
   }
 
