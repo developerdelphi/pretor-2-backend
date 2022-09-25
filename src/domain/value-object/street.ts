@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import InvalidStreetError from '../error/invalid-street-error'
+import { InvalidStreetError } from '@/domain/error'
 
 export class Street {
   private readonly street: string

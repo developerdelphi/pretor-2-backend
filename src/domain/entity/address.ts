@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/shared/either'
-import InvalidParamError from '../error/invalid-param-error'
-import { IAddress, InputAddressData } from '../protocols'
-import { Street } from '../value-object/street'
+import { InvalidParamError, InvalidStreetError } from '@/domain/error'
+import { IAddress, InputAddressData } from '@/domain/protocols'
+import { Street } from '@/domain/value-object/street'
 
 export default class Address implements IAddress {
   addressId: number
@@ -27,7 +27,7 @@ export default class Address implements IAddress {
     Object.freeze(this)
   }
 
-  static create (addressData: InputAddressData): Either<InvalidParamError, IAddress> {
+  static create (addressData: InputAddressData): Either<InvalidParamError | InvalidStreetError, IAddress> {
     const streetOrError: Either<InvalidParamError, Street> = Street.create(addressData.street)
     if (streetOrError.isLeft()) {
       return left(streetOrError.value)

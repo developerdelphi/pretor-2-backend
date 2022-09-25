@@ -1,4 +1,4 @@
-import InvalidEmailError from '@/domain/error/invalid-email-error'
+import { InvalidEmailError } from '@/domain/error'
 import { Email } from '@/domain/value-object/email'
 import { Either, Left, Right } from '@/shared/either'
 
