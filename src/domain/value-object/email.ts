@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/shared/either'
 import InvalidEmailError from '../error/invalid-email-error'
 
 export class Email {
@@ -8,9 +9,9 @@ export class Email {
     Object.freeze(this)
   }
 
-  static create (email: string): InvalidEmailError | Email {
-    if (!Email.isValid(email)) return new InvalidEmailError(email)
-    return new Email(email)
+  static create (email: string): Either<InvalidEmailError, Email> {
+    if (!Email.isValid(email)) return left(new InvalidEmailError(email))
+    return right(new Email(email))
   }
 
   static isValid (email: string): boolean {
