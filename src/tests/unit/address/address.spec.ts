@@ -1,20 +1,31 @@
 import Address from '@/domain/entity/address'
 import { InputAddressData } from '@/domain/protocols'
-// import { inputAddressData } from '@/domain/protocols/address-protocols'
+
+const makeAddress = (input: InputAddressData): Address => {
+  return new Address(input)
+}
+
+interface sutType {
+  sut: Address
+}
+const makeSut = (): sutType => {
+  const input: InputAddressData = {
+    addressId: 1,
+    street: 'valid_street',
+    number: 'valid_number',
+    complement: 'valid_complement',
+    district: 'valid_district',
+    cep: 'valid_cep',
+    city: 'valid_city',
+    uf: 'valid_uf'
+  }
+  const sut = makeAddress(input)
+  return { sut }
+}
 
 describe('Entidade Address', () => {
-  it('Deve garantir criar uma nova instancia de endereço ', () => {
-    const input: InputAddressData = {
-      addressId: 1,
-      street: 'valid_street',
-      number: 'valid_number',
-      complement: 'valid_complement',
-      district: 'valid_district',
-      cep: 'valid_cep',
-      city: 'valid_city',
-      uf: 'valid_uf'
-    }
-    const sut = new Address(input)
+  it('Deve criar uma nova instancia de endereço ', () => {
+    const { sut } = makeSut()
     expect(sut).toHaveProperty('addressId', 1)
     expect(sut).toHaveProperty('street', 'valid_street')
     expect(sut).toHaveProperty('number', 'valid_number')
@@ -24,4 +35,10 @@ describe('Entidade Address', () => {
     expect(sut).toHaveProperty('city', 'valid_city')
     expect(sut).toHaveProperty('uf', 'valid_uf')
   })
+
+  // it('Deve tentar criar uma nova instancia de endereço sem informar street', () => {
+  //   const { sut } = makeSut()
+  //   // const spyValidated = jest.spyOn(sut, 'validateField').mockImplementationOnce(() => { throw new Error() })
+  //   expect(spyValidated).toThrow('street é invalido')
+  // })
 })
