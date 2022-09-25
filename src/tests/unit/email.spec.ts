@@ -1,9 +1,9 @@
 import InvalidEmailError from '@/domain/error/invalid-email-error'
 import { Email } from '@/domain/value-object/email'
-import { Either, Left } from '@/shared/either'
+import { Either, Left, Right } from '@/shared/either'
 
 describe('Email Value Object', () => {
-  test('Deve validar um email', () => {
+  test('Deve validar um email com endereço correto', () => {
     expect(Email.isValid('valid-email123@com.br')).toBe(true)
   })
 
@@ -69,5 +69,14 @@ describe('Email Value Object', () => {
     expect(email.isLeft()).toBeTruthy()
     expect(email).toBeInstanceOf(Left)
     expect(email.value).toBeInstanceOf(InvalidEmailError)
+  })
+
+  test('Deve criar um email com endereço válido', () => {
+    const emailData = 'valid-email123@mail.com.br'
+    const email: Either<InvalidEmailError, Email> = Email.create(emailData)
+    console.log(email.value)
+    expect(email.isRight()).toBeTruthy()
+    expect(email).toBeInstanceOf(Right)
+    expect(email.value).toBeInstanceOf(Email)
   })
 })
