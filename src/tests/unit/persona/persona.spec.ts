@@ -2,7 +2,9 @@ import Address from '@/domain/entity/address'
 import Document from '@/domain/entity/document'
 import { Persona } from '@/domain/entity/persona'
 import Phone from '@/domain/entity/phone'
-import { InputAddressData, InputDocument, InputPhoneData, InputPersonaData } from '@/domain/protocols'
+import { InputAddressData, InputDocument, InputPhoneData, InputPersonaData, IAddress } from '@/domain/protocols'
+import { InvalidParamError } from '@/presentation/errors'
+import { Either } from '@/shared/either'
 
 const makeSut = (inputPersonaData: InputPersonaData): Persona => {
   const sut = new Persona('1', inputPersonaData.name, inputPersonaData.kind)
@@ -39,7 +41,8 @@ describe('Persona Entity', () => {
       city: 'Sossego',
       uf: 'GO'
     }
-    sut.addAddress(new Address(inputAddress))
+    const address1: Either<InvalidParamError, IAddress> = Address.create(inputAddress)
+    if (address1.isRight()) sut.addAddress(address1.value)
     expect(sut.address).toHaveLength(1)
   })
 
