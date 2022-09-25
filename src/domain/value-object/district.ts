@@ -1,4 +1,4 @@
-import { Either, right } from '@/shared/either'
+import { Either, left, right } from '@/shared/either'
 import { InvalidDistrictError } from '../error'
 
 interface IDistrict {
@@ -15,10 +15,16 @@ export class District implements IDistrict {
 
   static create (district: string): Either<InvalidDistrictError, IDistrict> {
     district = district.trim()
+    if (!District.isValid(district)) return left(new InvalidDistrictError(district))
     return right(new District(district))
   }
 
   get value (): string {
     return this.district
+  }
+
+  static isValid (district: string): boolean {
+    if (!district) return false
+    return true
   }
 }
