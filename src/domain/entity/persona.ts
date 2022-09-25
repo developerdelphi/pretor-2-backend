@@ -1,10 +1,11 @@
-import Address from './address'
+import { IAddress } from '../protocols'
+// import Address from './address'
 import Document from './document'
 import Name from './name'
 import Phone from './phone'
 
 export class Persona {
-  address: Address[] = []
+  address: IAddress[]
   phone: Phone[] = []
   document: Document[] = []
   name: string
@@ -13,9 +14,10 @@ export class Persona {
   constructor (private readonly pessoa_id: string, name: string, kind: string) {
     this.name = new Name(name).value
     this.kind = kind
+    this.address = []
   }
 
-  addAddress (address: Address): void {
+  addAddress (address: IAddress): void {
     this.address.push(address)
   }
 
