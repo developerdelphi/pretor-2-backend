@@ -23,7 +23,7 @@ describe('Entidade Address', () => {
       number: 'valid_number',
       complement: 'valid_complement',
       district: 'valid_district',
-      cep: 'valid_cep',
+      cep: '75000-000',
       city: 'valid_city',
       uf: 'GO'
     }
