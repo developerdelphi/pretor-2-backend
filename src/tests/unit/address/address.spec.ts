@@ -25,7 +25,7 @@ describe('Entidade Address', () => {
       district: 'valid_district',
       cep: 'valid_cep',
       city: 'valid_city',
-      uf: 'valid_uf'
+      uf: 'GO'
     }
     const { sut } = makeSut(input)
     const address = sut.value

@@ -9,9 +9,7 @@ export class City {
 
   static create (city: string): Either<InvalidCityError, City> {
     city = city.trim()
-
     if (!City.isValid(city)) return left(new InvalidCityError(city))
-
     return right(new City(city))
   }
 

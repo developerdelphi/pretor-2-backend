@@ -3,7 +3,6 @@ import { InvalidUfError } from '@/domain/error'
 
 export class Uf {
   private readonly uf: string
-
   constructor (uf: string) {
     this.uf = uf
   }
