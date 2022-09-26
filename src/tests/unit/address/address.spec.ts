@@ -1,4 +1,5 @@
 import Address from '@/domain/entity/address'
+import { InvalidStreetError } from '@/domain/error'
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { InvalidParamError } from '@/presentation/errors'
 import { Either } from '@/shared/either'
@@ -16,7 +17,7 @@ const makeSut = (input: InputAddressData): sutType => {
 }
 
 describe('Entidade Address', () => {
-  it('Deve criar uma nova instancia de endereço ', () => {
+  test('Deve criar uma nova instancia de endereço ', () => {
     const input: InputAddressData = {
       addressId: 0,
       street: 'Rua Principal',
@@ -29,19 +30,22 @@ describe('Entidade Address', () => {
     }
     const { sut } = makeSut(input)
     const address = sut.value
-    expect(address).toHaveProperty('addressId', 0)
-    // expect(address).toHaveProperty('street', 'Rua Principal')
-    // expect(address).toHaveProperty('number', 'valid_number')
-    // expect(address).toHaveProperty('complement', 'valid_complement')
-    // expect(address).toHaveProperty('district', 'valid_district')
-    // expect(address).toHaveProperty('cep', 'valid_cep')
-    // expect(address).toHaveProperty('city', 'valid_city')
-    // expect(address).toHaveProperty('uf', 'valid_uf')
+    expect(address).toBeInstanceOf(Address)
   })
 
-  // it('Deve tentar criar uma nova instancia de endereço sem informar street', () => {
-  //   const { sut } = makeSut()
-  //   // const spyValidated = jest.spyOn(sut, 'validateField').mockImplementationOnce(() => { throw new Error() })
-  //   expect(spyValidated).toThrow('street é invalido')
-  // })
+  test('Deve tentar criar uma nova instancia de endereço passando street inválida', () => {
+    const input: InputAddressData = {
+      addressId: 0,
+      street: '',
+      number: 'valid_number',
+      complement: 'valid_complement',
+      district: 'valid_district',
+      cep: '75000-000',
+      city: 'valid_city',
+      uf: 'GO'
+    }
+    const { sut } = makeSut(input)
+    const address = sut.value
+    expect(address).toBeInstanceOf(InvalidStreetError)
+  })
 })
