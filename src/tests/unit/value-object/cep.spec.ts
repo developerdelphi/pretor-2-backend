@@ -7,38 +7,32 @@ describe('CEP Value Object', () => {
     expect(cep.value).toBeInstanceOf(Cep)
   })
 
-  test.skip('Não Deve criar uma cep com valor inválido', () => {
+  test('Não Deve criar uma cep com valor inválido', () => {
     const cepInput = ''
     const cep = Cep.create(cepInput)
     expect(cep.value).toBeInstanceOf(InvalidCepError)
   })
 
-  test.skip('Não Deve criar uma cep com string menor 2 caracteres', () => {
-    const cepInput = 'n'
+  test('Não Deve criar uma cep com string menor 9 caracteres', () => {
+    const cepInput = '75000'
     const cep = Cep.create(cepInput)
     expect(cep.value).toBeInstanceOf(InvalidCepError)
   })
 
-  test.skip('Não Deve criar uma cep com string maior 2 caracteres', () => {
+  test('Não Deve criar uma cep com string maior 9 caracteres', () => {
     const cepInput = 'n'.repeat(10)
     const cep = Cep.create(cepInput)
     expect(cep.value).toBeInstanceOf(InvalidCepError)
   })
 
-  test.skip('Não Deve criar uma cep com string caracteres maiúsculas', () => {
-    const cepInput = 'go'
+  test('Não Deve criar uma cep foram do padrão ddddd-ddd', () => {
+    const cepInput = 'abcde-000'
     const cep = Cep.create(cepInput)
-    expect(cep.value).toEqual({ cep: 'GO' })
+    expect(cep.value).toBeInstanceOf(InvalidCepError)
   })
 
-  test.skip('Não Deve criar uma cep com string caracteres espaços', () => {
+  test('Não Deve criar uma cep com string caracteres espaços', () => {
     const cepInput = '  GO    '
-    const cep = Cep.create(cepInput)
-    expect(cep.value).toEqual({ cep: 'GO' })
-  })
-
-  test.skip('Não Deve criar uma cep que não seja estado brasileiro', () => {
-    const cepInput = 'XX'
     const cep = Cep.create(cepInput)
     expect(cep.value).toBeInstanceOf(InvalidCepError)
   })
