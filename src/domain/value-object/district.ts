@@ -1,11 +1,11 @@
 import { Either, left, right } from '@/shared/either'
 import { InvalidDistrictError } from '../error'
 
-interface IDistrict {
-  value: string
-}
+// export interface IDistrict {
+//   readonly district: string
+// }
 
-export class District implements IDistrict {
+export class District implements District {
   private readonly district: string
 
   private constructor (district: string) {
@@ -13,7 +13,7 @@ export class District implements IDistrict {
     Object.freeze(this)
   }
 
-  static create (district: string): Either<InvalidDistrictError, IDistrict> {
+  static create (district: string): Either<InvalidDistrictError, District> {
     district = district.trim()
     if (!District.isValid(district)) return left(new InvalidDistrictError(district))
     return right(new District(district))

@@ -1,23 +1,24 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidParamError, InvalidStreetError } from '@/domain/error'
+import { InvalidDistrictError, InvalidParamError, InvalidStreetError } from '@/domain/error'
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { Street } from '@/domain/value-object/street'
+import { District } from '../value-object'
 
 export default class Address implements IAddress {
   addressId: number
   public readonly street: Street
+  public readonly district: District
   number: string
   complement: string
-  district: string
   cep: string
   city: string
   uf: string
   status: string
 
-  private constructor (street: Street) {
+  private constructor (street: Street, district: District) {
     this.addressId = 0
     this.street = street
-    this.district = ''
+    this.district = district
     this.cep = ''
     this.city = ''
     this.uf = ''
@@ -27,13 +28,15 @@ export default class Address implements IAddress {
     Object.freeze(this)
   }
 
-  static create (addressData: InputAddressData): Either<InvalidParamError | InvalidStreetError, IAddress> {
+  static create (addressData: InputAddressData): Either<InvalidParamError | InvalidStreetError | InvalidDistrictError, IAddress> {
     const streetOrError: Either<InvalidParamError, Street> = Street.create(addressData.street)
-    if (streetOrError.isLeft()) {
-      return left(streetOrError.value)
-    }
+    const districtOrError: Either<InvalidDistrictError, District> = District.create(addressData.district)
+    if (streetOrError.isLeft()) return left(streetOrError.value)
+    if (districtOrError.isLeft()) return left(districtOrError.value)
+
     const street: Street = streetOrError.value
-    return right(new Address(street))
+    const district: District = districtOrError.value
+    return right(new Address(street, district))
   }
 
   validateField (field: string, value: string): string {

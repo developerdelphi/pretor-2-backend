@@ -1,11 +1,10 @@
-import { Street } from '../value-object/street'
-
+import { District, Street } from '../value-object'
 export interface IAddress {
   addressId: number
   street: Street
   number: string
   complement: string
-  district: string
+  district: District
   cep: string
   city: string
   uf: string
