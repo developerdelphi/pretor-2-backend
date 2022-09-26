@@ -1,12 +1,12 @@
-import { District, Street } from '../value-object'
+import { City, District, Street } from '@/domain/value-object'
 export interface IAddress {
   addressId: number
   street: Street
+  district: District
+  city: City
   number: string
   complement: string
-  district: District
   cep: string
-  city: string
   uf: string
   status: string
 }
