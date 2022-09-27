@@ -1,3 +1,3 @@
-export default class Document {
+export class Document {
   constructor (readonly documentId: string, readonly type: string, readonly identifier: string, readonly status: string) {}
 }

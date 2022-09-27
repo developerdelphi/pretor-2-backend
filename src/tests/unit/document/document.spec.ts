@@ -1,4 +1,4 @@
-import Document from '@/domain/entity/document'
+import { Document } from '@/domain/entity'
 import { InputDocument } from '@/domain/protocols/document-protocols'
 
 describe('Document Entity', () => {

@@ -1,20 +1,28 @@
-import { IAddress } from '../protocols'
+import { IAddress, InputPersonaData } from '../protocols'
 // import Address from './address'
-import Document from './document'
-import Name from './name'
-import Phone from './phone'
+import { Document, Phone } from '@/domain/entity'
+import { Name } from '@/domain/value-object'
+import { Either, left, right } from '@/shared/either'
+import { InvalidNamePersonaError } from '../error'
 
 export class Persona {
   address: IAddress[]
   phone: Phone[] = []
   document: Document[] = []
-  name: string
+  private readonly name: string
   kind: string
 
-  constructor (private readonly pessoa_id: string, name: string, kind: string) {
-    this.name = new Name(name).value
+  private constructor (private readonly pessoaId: string, name: Name, kind: string) {
+    this.name = name.value
     this.kind = kind
     this.address = []
+  }
+
+  static create (persona: InputPersonaData): Either<InvalidNamePersonaError, Persona> {
+    const nameOrError: Either<InvalidNamePersonaError, Name> = Name.create(persona.name)
+    if (nameOrError.isLeft()) return left(new InvalidNamePersonaError(persona.name))
+    const name: Name = nameOrError.value
+    return right(new Persona('0', name, persona.kind))
   }
 
   addAddress (address: IAddress): void {
@@ -27,5 +35,9 @@ export class Persona {
 
   addDocument (document: Document): void {
     this.document.push(document)
+  }
+
+  getName (): string {
+    return this.name
   }
 }

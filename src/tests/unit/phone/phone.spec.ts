@@ -1,4 +1,4 @@
-import Phone from '@/domain/entity/phone'
+import { Phone } from '@/domain/entity'
 import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 
 describe('Phone Entity', () => {

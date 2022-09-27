@@ -3,7 +3,7 @@ import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidParamEr
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { Cep, City, District, Street, Uf } from '@/domain/value-object'
 
-export default class Address implements IAddress {
+export class Address implements IAddress {
   addressId: number
   public readonly street: Street
   public readonly district: District
