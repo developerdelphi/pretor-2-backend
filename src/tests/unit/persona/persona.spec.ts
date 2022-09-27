@@ -19,6 +19,7 @@ describe('Persona Entity', () => {
   test('Deve criar uma pessoa como pessoa física', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = makeSut(input)
-    expect(sut.value).toHaveProperty('kind', 'F')
+    const compareKind = { kind: 'F' }
+    expect(sut.value).toHaveProperty('kind', compareKind)
   })
 })

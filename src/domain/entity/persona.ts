@@ -1,27 +1,30 @@
 import { IAddress, InputPersonaData } from '../protocols'
 import { Document, Phone } from '@/domain/entity'
-import { Name } from '@/domain/value-object'
+import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
-import { InvalidNamePersonaError } from '../error'
+import { InvalidKindError, InvalidNamePersonaError } from '../error'
 
 export class Persona {
   address: IAddress[]
   phone: Phone[] = []
   document: Document[] = []
   private readonly name: Name
-  kind: string
+  private readonly kind: Kind
 
-  private constructor (private readonly pessoaId: string, name: Name, kind: string) {
+  private constructor (private readonly pessoaId: string, name: Name, kind: Kind) {
     this.name = name
     this.kind = kind
     this.address = []
   }
 
-  static create (persona: InputPersonaData): Either<InvalidNamePersonaError, Persona> {
+  static create (persona: InputPersonaData): Either<InvalidNamePersonaError | InvalidKindError, Persona> {
     const nameOrError: Either<InvalidNamePersonaError, Name> = Name.create(persona.name)
+    const kindOrError: Either<InvalidKindError, Kind> = Kind.create(persona.kind)
     if (nameOrError.isLeft()) return left(new InvalidNamePersonaError(persona.name))
+    if (kindOrError.isLeft()) return left(new InvalidKindError(persona.kind))
     const name: Name = nameOrError.value
-    return right(new Persona('0', name, persona.kind))
+    const kind: Kind = kindOrError.value
+    return right(new Persona('0', name, kind))
   }
 
   addAddress (address: IAddress): void {
@@ -38,5 +41,9 @@ export class Persona {
 
   getName (): string {
     return this.name.value
+  }
+
+  getKind (): string {
+    return this.kind.value
   }
 }
