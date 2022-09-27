@@ -10,12 +10,8 @@ export class Persona {
   address: IAddress[]
   phone: Phone[] = []
   document: Document[] = []
-  private readonly name: Name
-  private readonly kind: Kind
 
-  private constructor (private readonly pessoaId: string, name: Name, kind: Kind) {
-    this.name = name
-    this.kind = kind
+  private constructor (private personaId: string, private readonly name: Name, private readonly kind: Kind) {
     this.address = []
   }
 
@@ -47,5 +43,9 @@ export class Persona {
 
   getKind (): string {
     return this.kind.value
+  }
+
+  setPersonaId (id: string): void {
+    this.personaId = id
   }
 }
