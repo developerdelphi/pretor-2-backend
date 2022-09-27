@@ -16,13 +16,6 @@ describe('Persona Entity', () => {
     expect(sut.value).toBeInstanceOf(InvalidNamePersonaError)
   })
 
-  test('Deve cadastrar uma pessoa com um nome válido', () => {
-    const input: InputPersonaData = { name: 'valid name', kind: 'F' }
-    const sut: Either<InvalidNamePersonaError, Persona> = makeSut(input)
-    const persona = sut.value
-    expect(persona).toHaveProperty('name', 'valid name')
-  })
-
   test('Deve criar uma pessoa como pessoa física', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = makeSut(input)

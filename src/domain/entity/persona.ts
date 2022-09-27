@@ -1,5 +1,4 @@
 import { IAddress, InputPersonaData } from '../protocols'
-// import Address from './address'
 import { Document, Phone } from '@/domain/entity'
 import { Name } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
@@ -9,11 +8,11 @@ export class Persona {
   address: IAddress[]
   phone: Phone[] = []
   document: Document[] = []
-  private readonly name: string
+  private readonly name: Name
   kind: string
 
   private constructor (private readonly pessoaId: string, name: Name, kind: string) {
-    this.name = name.value
+    this.name = name
     this.kind = kind
     this.address = []
   }
@@ -38,6 +37,6 @@ export class Persona {
   }
 
   getName (): string {
-    return this.name
+    return this.name.value
   }
 }
