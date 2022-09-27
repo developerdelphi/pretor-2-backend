@@ -4,6 +4,8 @@ import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
 import { InvalidKindError, InvalidNamePersonaError } from '../error'
 
+type PersonaOrError = Either<InvalidNamePersonaError | InvalidKindError, Persona>
+
 export class Persona {
   address: IAddress[]
   phone: Phone[] = []
@@ -17,7 +19,7 @@ export class Persona {
     this.address = []
   }
 
-  static create (persona: InputPersonaData): Either<InvalidNamePersonaError | InvalidKindError, Persona> {
+  static create (persona: InputPersonaData): PersonaOrError {
     const nameOrError: Either<InvalidNamePersonaError, Name> = Name.create(persona.name)
     const kindOrError: Either<InvalidKindError, Kind> = Kind.create(persona.kind)
     if (nameOrError.isLeft()) return left(new InvalidNamePersonaError(persona.name))
