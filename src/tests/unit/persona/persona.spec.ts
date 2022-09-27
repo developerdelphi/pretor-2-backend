@@ -12,7 +12,7 @@ const makeSut = (inputPersonaData: InputPersonaData): Persona => {
 }
 
 describe('Persona Entity', () => {
-  test('Deve tentar cadastrar uma pessoa com um nome inválido', () => {
+  test('Deve retornar um InvalidNameError ao tentar cadastrar uma pessoa com um nome inválido', () => {
     const input = { name: 'no', kind: 'F' }
     expect(() => makeSut(input)).toThrow(new Error('Invalid name'))
   })
