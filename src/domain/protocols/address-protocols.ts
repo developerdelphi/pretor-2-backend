@@ -1,4 +1,8 @@
 import { Cep, City, District, Street, Uf } from '@/domain/value-object'
+import { Either } from '@/shared/either'
+import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidParamError, InvalidStreetError, InvalidUfError } from '../error'
+
+export type AddressOrError = Either<InvalidParamError | InvalidStreetError | InvalidDistrictError | InvalidCityError | InvalidUfError | InvalidCepError, IAddress>
 export interface IAddress {
   addressId: number
   street: Street

@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidParamError, InvalidStreetError, InvalidUfError } from '@/domain/error'
-import { IAddress, InputAddressData } from '@/domain/protocols'
+import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidStreetError, InvalidUfError } from '@/domain/error'
+import { AddressOrError, IAddress, InputAddressData } from '@/domain/protocols'
 import { Cep, City, District, Street, Uf } from '@/domain/value-object'
 
 export class Address implements IAddress {
@@ -27,8 +27,8 @@ export class Address implements IAddress {
     Object.freeze(this)
   }
 
-  static create (addressData: InputAddressData): Either<InvalidParamError | InvalidStreetError | InvalidDistrictError | InvalidCityError | InvalidUfError | InvalidCepError, IAddress> {
-    const streetOrError: Either<InvalidParamError, Street> = Street.create(addressData.street)
+  static create (addressData: InputAddressData): AddressOrError {
+    const streetOrError: Either<InvalidStreetError, Street> = Street.create(addressData.street)
     const districtOrError: Either<InvalidDistrictError, District> = District.create(addressData.district)
     const cityOrError: Either<InvalidCityError, City> = City.create(addressData.city)
     const ufOrError: Either<InvalidUfError, Uf> = Uf.create(addressData.uf)
