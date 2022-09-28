@@ -1,16 +1,17 @@
-import { IAddress, InputPersonaData, PersonaOrError } from '../protocols'
+import { IAddress, InputPersonaData, IPhone, PersonaOrError } from '../protocols'
 import { Document, Phone } from '@/domain/entity'
 import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
 import { InvalidKindError, InvalidNamePersonaError } from '../error'
 
 export class Persona {
-  address: IAddress[]
-  phone: Phone[] = []
+  private readonly address: IAddress[]
+  private readonly phone: IPhone[]
   document: Document[] = []
 
   private constructor (private personaId: string, private readonly name: Name, private readonly kind: Kind) {
     this.address = []
+    this.phone = []
   }
 
   static create (persona: InputPersonaData): PersonaOrError {
