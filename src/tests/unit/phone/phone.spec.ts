@@ -1,14 +1,23 @@
 import { Phone } from '@/domain/entity'
+import { InvalidNumberPhoneError } from '@/domain/error'
 import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 
 describe('Phone Entity', () => {
-  test('Deve criar uma instancia da classe Phone com dados válidos de uma pessoa', () => {
+  test('Deve criar uma instancia da classe Phone', () => {
     const input: InputPhoneData = {
-      number: 'valid_number',
-      status: 'valid_status'
+      number: '(62) 99999-8877',
+      status: 'active'
     }
-    const sut = new Phone('1', input.number, input.status)
-    expect(sut).toHaveProperty('number', 'valid_number')
-    expect(sut).toHaveProperty('status', 'valid_status')
+    const sut = Phone.create(input)
+    expect(sut.value).toBeInstanceOf(Phone)
+  })
+
+  test('Deve retornar InvalidNumberPhoneError tentar cadastrar phone inválido', () => {
+    const input: InputPhoneData = {
+      number: '',
+      status: 'active'
+    }
+    const sut = Phone.create(input)
+    expect(sut.value).toBeInstanceOf(InvalidNumberPhoneError)
   })
 })

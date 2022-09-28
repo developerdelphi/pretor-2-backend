@@ -1,5 +1,5 @@
 import { AddPersona } from '@/application/usecases/add-persona'
-import { InvalidNamePersonaError, InvalidStreetError } from '@/domain/error'
+import { InvalidKindError, InvalidNamePersonaError, InvalidStreetError } from '@/domain/error'
 import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
@@ -63,11 +63,18 @@ describe('Registrar uma Pessoa - UseCase', () => {
     expect(newPersona.isRight()).toBeTruthy()
   })
 
-  test('Deve retornar erro ao tentar registrar uma pessoa com nome inválido', async () => {
+  test('Deve retornar InvalidNamePersonaError ao tentar registrar uma pessoa com nome inválido', async () => {
     const { addPersona } = makeSut()
     const inputFake = { ...input, name: '' }
     const newPersona = await addPersona.execute(inputFake)
     expect(newPersona.value).toBeInstanceOf(InvalidNamePersonaError)
+  })
+
+  test('Deve retornar InvalidKindError ao tentar registrar uma pessoa com nome inválido', async () => {
+    const { addPersona } = makeSut()
+    const inputFake = { ...input, kind: '--' }
+    const newPersona = await addPersona.execute(inputFake)
+    expect(newPersona.value).toBeInstanceOf(InvalidKindError)
   })
 
   test('Deve retornar InvalidStreetError ao tentar registrar uma pessoa com endereço inválido', async () => {
