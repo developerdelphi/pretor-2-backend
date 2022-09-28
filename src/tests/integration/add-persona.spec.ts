@@ -1,4 +1,5 @@
 import { AddPersona } from '@/application/usecases/add-persona'
+import { InvalidNamePersonaError, InvalidStreetError } from '@/domain/error'
 import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
@@ -41,30 +42,59 @@ const makeSut = (): SutType => {
 
   return { addPersona, personaRepository, connection }
 }
+
 describe('Registrar uma Pessoa - UseCase', () => {
-  test('Deve registrar uma pessoa no sistema em database', async () => {
+  test('Deve registrar uma pessoa no sistema', async () => {
     const { addPersona } = makeSut()
-    const newPersona = await addPersona.execute(input)
-    expect(newPersona.isRight).toBeTruthy()
+    const inputFake: InputPersonaData = {
+      name: 'Valid Name',
+      kind: 'F',
+      address: [{
+        street: 'Rua valid',
+        number: '123',
+        complement: 'Qd. 01, Lt. 02, Casa 03',
+        district: 'Centro',
+        cep: '75000-000',
+        city: 'Anápolis',
+        uf: 'GO'
+      }]
+    }
+    const newPersona = await addPersona.execute(inputFake)
+    expect(newPersona.isRight()).toBeTruthy()
   })
 
-  // test('Deve registrar uma pessoa com um endereço', async () => {
-  //   const { addPersona } = makeSut()
-  //   const input: InputPersonaData = {
-  //     name: 'Valid Name',
-  //     kind: 'F',
-  //     address: [{
-  //       street: 'Rua Principal',
-  //       number: '123',
-  //       complement: 'Qd. 01, Lt. 02, Casa 03',
-  //       district: 'Centro',
-  //       cep: '75000-000',
-  //       city: 'Anápolis',
-  //       uf: 'GO'
-  //     }]
+  test('Deve retornar erro ao tentar registrar uma pessoa com nome inválido', async () => {
+    const { addPersona } = makeSut()
+    const inputFake = { ...input, name: '' }
+    const newPersona = await addPersona.execute(inputFake)
+    expect(newPersona.value).toBeInstanceOf(InvalidNamePersonaError)
+  })
 
-  //   }
-  //   const newPersona = await addPersona.execute(input)
-  //   expect(newPersona.address).toEqual(input.address)
-  // })
+  test('Deve retornar InvalidStreetError ao tentar registrar uma pessoa com endereço inválido', async () => {
+    const { addPersona } = makeSut()
+    const inputFake: InputPersonaData = {
+      name: 'Valid Name',
+      kind: 'F',
+      document: [{
+        type: 'cpf',
+        identifier: '111.111.111-11',
+        status: 'active'
+      }],
+      address: [{
+        street: '----',
+        number: '123',
+        complement: 'Qd. 01, Lt. 02, Casa 03',
+        district: 'Centro',
+        cep: '75000-000',
+        city: 'Anápolis',
+        uf: 'GO'
+      }],
+      phone: [{
+        number: '(62) 99999-8877',
+        status: 'active'
+      }]
+    }
+    const newPersona = await addPersona.execute(inputFake)
+    expect(newPersona.value).toBeInstanceOf(InvalidStreetError)
+  })
 })
