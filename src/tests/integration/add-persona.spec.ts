@@ -1,5 +1,5 @@
 import { AddPersona } from '@/application/usecases/add-persona'
-import { InvalidKindError, InvalidNamePersonaError, InvalidStreetError } from '@/domain/error'
+import { InvalidKindError, InvalidNamePersonaError, InvalidNumberPhoneError, InvalidStreetError } from '@/domain/error'
 import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
@@ -82,11 +82,6 @@ describe('Registrar uma Pessoa - UseCase', () => {
     const inputFake: InputPersonaData = {
       name: 'Valid Name',
       kind: 'F',
-      document: [{
-        type: 'cpf',
-        identifier: '111.111.111-11',
-        status: 'active'
-      }],
       address: [{
         street: '----',
         number: '123',
@@ -95,13 +90,23 @@ describe('Registrar uma Pessoa - UseCase', () => {
         cep: '75000-000',
         city: 'Anápolis',
         uf: 'GO'
-      }],
-      phone: [{
-        number: '(62) 99999-8877',
-        status: 'active'
       }]
     }
     const newPersona = await addPersona.execute(inputFake)
     expect(newPersona.value).toBeInstanceOf(InvalidStreetError)
+  })
+
+  test('Deve retornar InvalidNumberPhoneError ao tentar registrar uma pessoa com telefone inválido', async () => {
+    const { addPersona } = makeSut()
+    const inputFake: InputPersonaData = {
+      name: 'Valid Name',
+      kind: 'F',
+      phone: [{
+        number: '999999-9999',
+        status: 'active'
+      }]
+    }
+    const newPersona = await addPersona.execute(inputFake)
+    expect(newPersona.value).toBeInstanceOf(InvalidNumberPhoneError)
   })
 })
