@@ -1,13 +1,16 @@
 import { Either, left, right } from '@/shared/either'
 import { InvalidNumberPhoneError } from '../error'
 import { InputPhoneData } from '../protocols'
+import { NumberPhone } from '../value-object/number-phone'
 
 export class Phone {
-  private constructor (readonly phoneId: string, readonly number: string, readonly status: string = 'active') { }
+  private constructor (readonly phoneId: string, readonly number: NumberPhone, readonly status: string = 'active') { }
 
   static create (phone: InputPhoneData): Either<InvalidNumberPhoneError, Phone> {
-    if (!phone.number) return left(new InvalidNumberPhoneError(phone.number))
-    return right(new Phone('0', phone.number)
+    const numberOrError: Either<InvalidNumberPhoneError, NumberPhone> = NumberPhone.create(phone.number)
+    if (numberOrError.isLeft()) return left(new InvalidNumberPhoneError(phone.number))
+    const numberInput: NumberPhone = numberOrError.value
+    return right(new Phone('0', numberInput)
     )
   }
 }

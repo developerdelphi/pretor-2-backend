@@ -5,7 +5,7 @@ import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 describe('Phone Entity', () => {
   test('Deve criar uma instancia da classe Phone', () => {
     const input: InputPhoneData = {
-      number: '(62) 99999-8877',
+      number: '(62)99999-8877',
       status: 'active'
     }
     const sut = Phone.create(input)

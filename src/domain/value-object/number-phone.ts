@@ -19,4 +19,8 @@ export class NumberPhone {
     if (!phonePattern.test(number)) return false
     return true
   }
+
+  get value (): string {
+    return this.number
+  }
 }
