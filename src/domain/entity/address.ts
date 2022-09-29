@@ -7,22 +7,22 @@ import { InvalidStatusError } from '../error/invalid-status-error'
 
 export class Address implements IAddress {
   addressId: number
-  public readonly street: Street
-  public readonly district: District
-  public readonly city: City
-  public readonly uf: Uf
-  public readonly cep: Cep
+  private readonly _street: Street
   private readonly _number: NumberAddress
   complement: string
+  private readonly _district: District
+  private readonly _cep: Cep
+  private readonly _city: City
+  private readonly _uf: Uf
   private readonly _status: Status
 
   private constructor (street: Street, district: District, city: City, uf: Uf, cep: Cep, status: Status, number: NumberAddress) {
     this.addressId = 0
-    this.street = street
-    this.district = district
-    this.city = city
-    this.uf = uf
-    this.cep = cep
+    this._street = street
+    this._district = district
+    this._city = city
+    this._uf = uf
+    this._cep = cep
     this._number = number
     this.complement = ''
     this._status = status
@@ -64,11 +64,31 @@ export class Address implements IAddress {
     return valueInValidation
   }
 
-  get status (): string {
-    return this._status.value
+  get street (): string {
+    return this._street.value
   }
 
   get number (): string {
     return this._number.value
+  }
+
+  get district (): string {
+    return this._district.value
+  }
+
+  get city (): string {
+    return this._city.value
+  }
+
+  get uf (): string {
+    return this._uf.value
+  }
+
+  get cep (): string {
+    return this._cep.value
+  }
+
+  get status (): string {
+    return this._status.value
   }
 }

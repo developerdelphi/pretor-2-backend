@@ -15,7 +15,7 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
 
     if (persona.address.length) {
       for (const address of persona.address) {
-        await this.connection.query('insert into address (persona_id, street, number, complement, district, cep, city, uf, status, obs) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [personaId, address.street.value, address.number, address.complement, address.district.value, address.cep.value, address.city.value, address.uf.value, 'active', ''])
+        await this.connection.query('insert into address (persona_id, street, number, complement, district, cep, city, uf, status, obs) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [personaId, address.street, address.number, address.complement, address.district, address.cep, address.city, address.uf, 'active', ''])
       }
     }
 
