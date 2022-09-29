@@ -21,7 +21,7 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
 
     if (persona.phone.length) {
       for (const phone of persona.phone) {
-        await this.connection.query('insert into phone (persona_id, number, status) values ($1, $2, $3)', [personaId, phone.number, phone.status])
+        await this.connection.query('insert into phone (persona_id, number, status) values ($1, $2, $3)', [personaId, phone.number.value, phone.status])
       }
     }
 
