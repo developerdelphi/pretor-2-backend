@@ -57,6 +57,10 @@ describe('Registrar uma Pessoa - UseCase', () => {
         cep: '75000-000',
         city: 'Anápolis',
         uf: 'GO'
+      }],
+      phone: [{
+        number: '(99)99999-9999',
+        status: 'active'
       }]
     }
     const newPersona = await addPersona.execute(inputFake)

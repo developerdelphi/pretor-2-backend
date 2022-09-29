@@ -5,13 +5,19 @@ import { Either, left, right } from '@/shared/either'
 import { InvalidKindError, InvalidNamePersonaError } from '../error'
 
 export class Persona {
-  private readonly address: IAddress[]
-  private readonly phone: IPhone[]
-  document: Document[] = []
+  protected _id: string
+  protected _name: string
+  protected _kind: string
+  private readonly _address: IAddress[]
+  private readonly _phone: IPhone[]
+  _document: Document[] = []
 
-  private constructor (private personaId: string, private readonly name: Name, private readonly kind: Kind) {
-    this.address = []
-    this.phone = []
+  private constructor (personaId: string, name: Name, kind: Kind) {
+    this._id = personaId
+    this._name = name.value
+    this._kind = kind.value
+    this._address = []
+    this._phone = []
   }
 
   static create (persona: InputPersonaData): PersonaOrError {
@@ -25,26 +31,46 @@ export class Persona {
   }
 
   addAddress (address: IAddress): void {
-    this.address.push(address)
+    this._address.push(address)
   }
 
   addPhone (phone: Phone): void {
-    this.phone.push(phone)
+    this._phone.push(phone)
   }
 
   addDocument (document: Document): void {
-    this.document.push(document)
+    this._document.push(document)
   }
 
-  getName (): string {
-    return this.name.value
+  get address (): IAddress[] {
+    return this._address
   }
 
-  getKind (): string {
-    return this.kind.value
+  get phone (): IPhone[] {
+    return this._phone
   }
 
-  setPersonaId (id: string): void {
-    this.personaId = id
+  get personaId (): string {
+    return this._id
+  }
+
+  set personaId (id: string) {
+    this._id = id
+  }
+
+  get name (): string {
+    return this._name
+  }
+
+  set name (name: string) {
+    this._name = name
+  }
+
+  get kind (): string {
+    return this._kind
+  }
+
+  set kind (kind: string) {
+    this._kind = kind
   }
 }

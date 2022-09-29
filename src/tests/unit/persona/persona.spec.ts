@@ -1,7 +1,6 @@
 import { Persona } from '@/domain/entity'
 import { InvalidNamePersonaError } from '@/domain/error'
 import { InputPersonaData } from '@/domain/protocols'
-
 import { Either } from '@/shared/either'
 
 const makeSut = (inputPersonaData: InputPersonaData): Either<InvalidNamePersonaError, Persona> => {
@@ -19,7 +18,17 @@ describe('Persona Entity', () => {
   test('Deve criar uma pessoa como pessoa física', () => {
     const input = { name: 'valid name', kind: 'F' }
     const sut = makeSut(input)
-    const compareKind = { kind: 'F' }
-    expect(sut.value).toHaveProperty('kind', compareKind)
+    expect(sut.value).toHaveProperty('kind', 'F')
   })
+
+  // test('Deve criar uma pessoa com ID válido', () => {
+  //   const input = { name: 'valid name', kind: 'F' }
+  //   const sut = makeSut(input)
+  //   const persona: IPersona = sut.value
+  //   // if (sut.isRight()) persona = sut.value
+  //   const personaID = '3'
+  //   if (sut.isRight()) { persona.personaId = personaID }
+
+  //   expect(persona).toHaveProperty('personaId', personaID)
+  // })
 })
