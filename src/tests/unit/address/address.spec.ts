@@ -1,5 +1,5 @@
 import { Address } from '@/domain/entity'
-import { InvalidStreetError } from '@/domain/error'
+import { InvalidNumberAddressError, InvalidStreetError } from '@/domain/error'
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { InvalidParamError } from '@/presentation/errors'
 import { Either } from '@/shared/either'
@@ -47,5 +47,21 @@ describe('Entidade Address', () => {
     const { sut } = makeSut(input)
     const address = sut.value
     expect(address).toBeInstanceOf(InvalidStreetError)
+  })
+
+  test('Deve tentar criar uma nova instancia de endereço passando number inválido', () => {
+    const input: InputAddressData = {
+      addressId: 0,
+      street: 'Rua Valid Street',
+      number: '2'.repeat(25),
+      complement: 'valid_complement',
+      district: 'valid_district',
+      cep: '75000-000',
+      city: 'valid_city',
+      uf: 'GO'
+    }
+    const { sut } = makeSut(input)
+    const address = sut.value
+    expect(address).toBeInstanceOf(InvalidNumberAddressError)
   })
 })

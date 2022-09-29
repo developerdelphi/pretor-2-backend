@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidStreetError, InvalidUfError } from '@/domain/error'
+import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidNumberAddressError, InvalidStreetError, InvalidUfError } from '@/domain/error'
 import { AddressOrError, IAddress, InputAddressData } from '@/domain/protocols'
-import { Cep, City, District, Street, Uf } from '@/domain/value-object'
+import { Cep, City, District, NumberAddress, Street, Uf } from '@/domain/value-object'
 import { Status } from '../value-object/status'
 import { InvalidStatusError } from '../error/invalid-status-error'
 
@@ -12,18 +12,18 @@ export class Address implements IAddress {
   public readonly city: City
   public readonly uf: Uf
   public readonly cep: Cep
-  number: string
+  private readonly _number: NumberAddress
   complement: string
   private readonly _status: Status
 
-  private constructor (street: Street, district: District, city: City, uf: Uf, cep: Cep, status: Status) {
+  private constructor (street: Street, district: District, city: City, uf: Uf, cep: Cep, status: Status, number: NumberAddress) {
     this.addressId = 0
     this.street = street
     this.district = district
     this.city = city
     this.uf = uf
     this.cep = cep
-    this.number = ''
+    this._number = number
     this.complement = ''
     this._status = status
     Object.freeze(this)
@@ -36,6 +36,7 @@ export class Address implements IAddress {
     const ufOrError: Either<InvalidUfError, Uf> = Uf.create(addressData.uf)
     const cepOrError: Either<InvalidCepError, Cep> = Cep.create(addressData.cep)
     const statusOrError: Either<InvalidStatusError, Status> = Status.create(addressData.status ?? 'active')
+    const numberOrError: Either<InvalidNumberAddressError, NumberAddress> = NumberAddress.create(addressData.number ?? '')
 
     if (streetOrError.isLeft()) return left(streetOrError.value)
     if (districtOrError.isLeft()) return left(districtOrError.value)
@@ -43,6 +44,7 @@ export class Address implements IAddress {
     if (ufOrError.isLeft()) return left(ufOrError.value)
     if (cepOrError.isLeft()) return left(cepOrError.value)
     if (statusOrError.isLeft()) return left(statusOrError.value)
+    if (numberOrError.isLeft()) return left(numberOrError.value)
 
     const street: Street = streetOrError.value
     const district: District = districtOrError.value
@@ -50,7 +52,8 @@ export class Address implements IAddress {
     const uf: Uf = ufOrError.value
     const cep: Cep = cepOrError.value
     const status: Status = statusOrError.value
-    return right(new Address(street, district, city, uf, cep, status))
+    const number: NumberAddress = numberOrError.value
+    return right(new Address(street, district, city, uf, cep, status, number))
   }
 
   validateField (field: string, value: string): string {
@@ -63,5 +66,9 @@ export class Address implements IAddress {
 
   get status (): string {
     return this._status.value
+  }
+
+  get number (): string {
+    return this._number.value
   }
 }
