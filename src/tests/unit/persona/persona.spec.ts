@@ -21,14 +21,14 @@ describe('Persona Entity', () => {
     expect(sut.value).toHaveProperty('kind', 'F')
   })
 
-  // test('Deve criar uma pessoa com ID válido', () => {
-  //   const input = { name: 'valid name', kind: 'F' }
-  //   const sut = makeSut(input)
-  //   const persona: IPersona = sut.value
-  //   // if (sut.isRight()) persona = sut.value
-  //   const personaID = '3'
-  //   if (sut.isRight()) { persona.personaId = personaID }
+  test('Deve criar uma pessoa com ID válido', () => {
+    // const input = { name: 'valid name', kind: 'F' }
+    // const sut = makeSut(input)
+    // const persona: IPersona = sut.value
+    // // if (sut.isRight()) persona = sut.value
+    // const personaID = '3'
+    // if (sut.isRight()) { persona.personaId = personaID }
 
-  //   expect(persona).toHaveProperty('personaId', personaID)
-  // })
+    // expect(persona).toHaveProperty('personaId', personaID)
+  })
 })
