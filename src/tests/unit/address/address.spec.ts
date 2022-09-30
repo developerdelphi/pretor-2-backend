@@ -1,5 +1,5 @@
 import { Address } from '@/domain/entity'
-import { InvalidNumberAddressError, InvalidStreetError } from '@/domain/error'
+import { InvalidComplementAddressError, InvalidNumberAddressError, InvalidStreetError } from '@/domain/error'
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { InvalidParamError } from '@/presentation/errors'
 import { Either } from '@/shared/either'
@@ -31,6 +31,14 @@ describe('Entidade Address', () => {
     const { sut } = makeSut(input)
     const address = sut.value
     expect(address).toBeInstanceOf(Address)
+    expect(address).toHaveProperty('addressId', input.addressId)
+    expect(address).toHaveProperty('street', input.street)
+    expect(address).toHaveProperty('number', input.number)
+    expect(address).toHaveProperty('complement', input.complement)
+    expect(address).toHaveProperty('district', input.district)
+    expect(address).toHaveProperty('cep', input.cep)
+    expect(address).toHaveProperty('city', input.city)
+    expect(address).toHaveProperty('uf', input.uf)
   })
 
   test('Deve tentar criar uma nova instancia de endereço passando street inválida', () => {
@@ -49,7 +57,7 @@ describe('Entidade Address', () => {
     expect(address).toBeInstanceOf(InvalidStreetError)
   })
 
-  test('Deve tentar criar uma nova instancia de endereço passando number inválido', () => {
+  test('Deve receber InvalidNumberAddressError passando number inválido', () => {
     const input: InputAddressData = {
       addressId: 0,
       street: 'Rua Valid Street',
@@ -63,5 +71,21 @@ describe('Entidade Address', () => {
     const { sut } = makeSut(input)
     const address = sut.value
     expect(address).toBeInstanceOf(InvalidNumberAddressError)
+  })
+
+  test('Deve InvalidComplementAddressError passando complement inválido', () => {
+    const input: InputAddressData = {
+      addressId: 0,
+      street: 'Rua Valid Street',
+      number: '2',
+      complement: 'a'.repeat(110),
+      district: 'valid_district',
+      cep: '75000-000',
+      city: 'valid_city',
+      uf: 'GO'
+    }
+    const { sut } = makeSut(input)
+    const address = sut.value
+    expect(address).toBeInstanceOf(InvalidComplementAddressError)
   })
 })

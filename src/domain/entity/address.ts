@@ -1,22 +1,23 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidNumberAddressError, InvalidStreetError, InvalidUfError } from '@/domain/error'
+import { InvalidCepError, InvalidCityError, InvalidComplementAddressError, InvalidDistrictError, InvalidNumberAddressError, InvalidStreetError, InvalidUfError } from '@/domain/error'
 import { AddressOrError, IAddress, InputAddressData } from '@/domain/protocols'
 import { Cep, City, District, NumberAddress, Street, Uf } from '@/domain/value-object'
 import { Status } from '../value-object/status'
 import { InvalidStatusError } from '../error/invalid-status-error'
+import { ComplementAddress } from '../value-object/complement-address'
 
 export class Address implements IAddress {
   addressId: number
   private readonly _street: Street
   private readonly _number: NumberAddress
-  complement: string
+  private readonly _complement: ComplementAddress
   private readonly _district: District
   private readonly _cep: Cep
   private readonly _city: City
   private readonly _uf: Uf
   private readonly _status: Status
 
-  private constructor (street: Street, district: District, city: City, uf: Uf, cep: Cep, status: Status, number: NumberAddress) {
+  private constructor (street: Street, district: District, city: City, uf: Uf, cep: Cep, status: Status, number: NumberAddress, complement: ComplementAddress) {
     this.addressId = 0
     this._street = street
     this._district = district
@@ -24,7 +25,7 @@ export class Address implements IAddress {
     this._uf = uf
     this._cep = cep
     this._number = number
-    this.complement = ''
+    this._complement = complement
     this._status = status
     Object.freeze(this)
   }
@@ -37,6 +38,7 @@ export class Address implements IAddress {
     const cepOrError: Either<InvalidCepError, Cep> = Cep.create(addressData.cep)
     const statusOrError: Either<InvalidStatusError, Status> = Status.create(addressData.status ?? 'active')
     const numberOrError: Either<InvalidNumberAddressError, NumberAddress> = NumberAddress.create(addressData.number ?? '')
+    const complementOrError: Either<InvalidComplementAddressError, ComplementAddress> = ComplementAddress.create(addressData.complement ?? '')
 
     if (streetOrError.isLeft()) return left(streetOrError.value)
     if (districtOrError.isLeft()) return left(districtOrError.value)
@@ -45,6 +47,7 @@ export class Address implements IAddress {
     if (cepOrError.isLeft()) return left(cepOrError.value)
     if (statusOrError.isLeft()) return left(statusOrError.value)
     if (numberOrError.isLeft()) return left(numberOrError.value)
+    if (complementOrError.isLeft()) return left(complementOrError.value)
 
     const street: Street = streetOrError.value
     const district: District = districtOrError.value
@@ -53,7 +56,8 @@ export class Address implements IAddress {
     const cep: Cep = cepOrError.value
     const status: Status = statusOrError.value
     const number: NumberAddress = numberOrError.value
-    return right(new Address(street, district, city, uf, cep, status, number))
+    const complement: ComplementAddress = complementOrError.value
+    return right(new Address(street, district, city, uf, cep, status, number, complement))
   }
 
   validateField (field: string, value: string): string {
@@ -86,6 +90,10 @@ export class Address implements IAddress {
 
   get cep (): string {
     return this._cep.value
+  }
+
+  get complement (): string {
+    return this._complement.value
   }
 
   get status (): string {
