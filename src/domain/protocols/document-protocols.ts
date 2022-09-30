@@ -1,4 +1,4 @@
-export interface InputDocument {
+export interface InputDocumentData {
   type: string
   identifier: string
   status: string
