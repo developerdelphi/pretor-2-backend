@@ -6,6 +6,7 @@ export * from './invalid-kind-error'
 // imports of type generic error
 export * from './invalid-param-error'
 export * from './invalid-status-error'
+export * from './invalid-cpf-error'
 // imports of type phone error
 export * from './invalid-number-phone-error'
 // imports of type address error
