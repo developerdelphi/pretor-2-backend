@@ -1,17 +1,18 @@
 import { Document } from '@/domain/entity'
-import { InputDocument } from '@/domain/protocols/document-protocols'
+import { InputDocumentData } from '@/domain/protocols/document-protocols'
 
 describe('Document Entity', () => {
   test('Deve criar um Document com valores válidos', () => {
-    const input: InputDocument = {
+    const input: InputDocumentData = {
       type: 'valid_type',
       identifier: 'valid_identifier',
       status: 'valid_status'
     }
-    const sut = new Document('1', input.type, input.identifier, input.status)
-    expect(sut).toHaveProperty('documentId', '1')
-    expect(sut).toHaveProperty('type', 'valid_type')
-    expect(sut).toHaveProperty('identifier', 'valid_identifier')
-    expect(sut).toHaveProperty('status', 'valid_status')
+    const sut = Document.create(input)
+    expect(sut.value).toBeInstanceOf(Document)
+    expect(sut.value).toHaveProperty('id', '0')
+    expect(sut.value).toHaveProperty('type', 'valid_type')
+    expect(sut.value).toHaveProperty('identifier', 'valid_identifier')
+    expect(sut.value).toHaveProperty('status', 'valid_status')
   })
 })
