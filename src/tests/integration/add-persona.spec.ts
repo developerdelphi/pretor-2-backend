@@ -45,7 +45,7 @@ const makeSut = (): SutType => {
 
 describe('Registrar uma Pessoa - UseCase', () => {
   test('Deve registrar uma pessoa no sistema', async () => {
-    const { addPersona } = makeSut()
+    const { addPersona, connection } = makeSut()
     const inputFake: InputPersonaData = {
       name: 'Valid Name',
       kind: 'F',
@@ -65,6 +65,7 @@ describe('Registrar uma Pessoa - UseCase', () => {
     }
     const newPersona = await addPersona.execute(inputFake)
     expect(newPersona.isRight()).toBeTruthy()
+    await connection.close()
   })
 
   test('Deve retornar InvalidNamePersonaError ao tentar registrar uma pessoa com nome inválido', async () => {
