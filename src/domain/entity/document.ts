@@ -1,7 +1,8 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidStatusError } from '../error'
+import { InvalidCpfError, InvalidStatusError } from '../error'
 import { DocumentOrError, InputDocumentData } from '../protocols'
 import { Status } from '../value-object'
+import { Cpf } from '../value-object/cpf'
 
 export class Document {
   private readonly _id: string
@@ -17,10 +18,26 @@ export class Document {
   }
 
   static create (input: InputDocumentData): DocumentOrError {
+    const validated: Either<Error, String> = this.validator(input.kind, input.identifier)
+
+    if (validated.isLeft()) return left(validated.value)
+    const identifier = validated.value
+
     const statusOrError: Either<InvalidStatusError, Status> = Status.create(input.status)
     if (statusOrError.isLeft()) return left(new InvalidStatusError(input.status))
     const status: Status = statusOrError.value
-    return right(new Document('0', input.kind, input.identifier, status))
+
+    return right(new Document('0', input.kind, identifier.valueOf(), status))
+  }
+
+  private static validator (kind: string, identifier: string): Either<Error, String> {
+    if (kind === 'CPF') {
+      const cpfOrError = Cpf.create(identifier)
+      if (cpfOrError.isLeft()) return left(new InvalidCpfError(identifier))
+      const cpf = cpfOrError.value
+      return right(cpf.value)
+    }
+    return right(identifier)
   }
 
   get id (): string {
