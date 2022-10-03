@@ -25,6 +25,12 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
       }
     }
 
+    if (persona.document.length) {
+      for (const document of persona.document) {
+        await this.connection.query('insert into document (persona_id, kind, identifier, status) values ($1, $2, $3, $4)', [personaId, document.kind, document.identifier, document.status])
+      }
+    }
+
     return right(persona)
   }
 }
