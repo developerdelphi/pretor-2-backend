@@ -42,7 +42,7 @@ export class AddPersona {
       }
     }
 
-    const personaCreated = await this.personaRepository.create(persona)
-    return personaCreated
+    const newPersona = await this.personaRepository.create(persona)
+    return newPersona
   }
 }
