@@ -11,7 +11,7 @@ const input: InputPersonaData = {
   name: 'Valid Name',
   kind: 'F',
   document: [{
-    type: 'cpf',
+    kind: 'cpf',
     identifier: '111.111.111-11',
     status: 'active'
   }],

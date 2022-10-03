@@ -1,9 +1,9 @@
-import { Address, IDocument, IPhone } from '@/domain/protocols'
+import { IAddress, IDocument, IPhone } from '@/domain/protocols'
 export interface PersonaModel {
   persona_id: string
   name: string
   kind: string
-  address?: [Address] | [] | undefined
+  address?: [IAddress] | [] | undefined
   document?: [IDocument] | [] | undefined
   phone?: [IPhone] | [] | undefined
 }

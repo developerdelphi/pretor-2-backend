@@ -6,7 +6,7 @@ export default class PgPromiseConnectionAdapter implements Connection {
   static instance: PgPromiseConnectionAdapter
 
   private constructor () {
-    this.pgp = pgp()('postgres://postgres:docker@localhost:5432/pretor')
+    this.pgp = pgp()('postgres://pretor:123@0.0.0.0:5434/pretor')
   }
 
   static getInstance (): PgPromiseConnectionAdapter {

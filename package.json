@@ -11,7 +11,7 @@
     "test:staged": "npm test --findRelatedTests",
     "test:ci": "npm test --coverage",
     "lint": "eslint .",
-    "lint:fix": "npm lint --fix",
+    "lint:fix": "npm run lint -- --fix",
     "prepare": "husky install",
     "main": "tsc && node ./dist/main/api/main --trace-warnings",
     "build": "rimraf dist/* && tsc -p tsconfig.build.json",
