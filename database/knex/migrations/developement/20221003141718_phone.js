@@ -19,5 +19,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-
+  return knex.raw('DROP TABLE IF EXISTS phone CASCADE')
 };

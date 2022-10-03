@@ -8,6 +8,7 @@ exports.up = function(knex) {
     table.integer('persona_id').unsigned().notNullable()
     table.string('street', 150).notNullable()
     table.string('number', 20)
+    table.string('complement', 100)
     table.string('district', 50)
     table.string('cep', 10)
     table.string('city', 100)
