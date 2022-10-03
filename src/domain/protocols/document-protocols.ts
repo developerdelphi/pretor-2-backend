@@ -1,5 +1,4 @@
 import { Either } from '@/shared/either'
-import { InvalidStatusError } from '../error'
 
 export interface InputDocumentData {
   kind: string
@@ -14,4 +13,4 @@ export interface IDocument {
   status: string
 }
 
-export type DocumentOrError = Either<InvalidStatusError, IDocument>
+export type DocumentOrError = Either<Error, IDocument>
