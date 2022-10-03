@@ -1,4 +1,4 @@
-import { IAddress, InputPersonaData, IPhone, PersonaOrError } from '../protocols'
+import { IAddress, IDocument, InputPersonaData, IPhone, PersonaOrError } from '../protocols'
 import { Document, Phone } from '@/domain/entity'
 import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
@@ -10,7 +10,7 @@ export class Persona {
   protected _kind: string
   private readonly _address: IAddress[]
   private readonly _phone: IPhone[]
-  _document: Document[] = []
+  private readonly _document: Document[]
 
   private constructor (personaId: string, name: Name, kind: Kind) {
     this._id = personaId
@@ -18,6 +18,7 @@ export class Persona {
     this._kind = kind.value
     this._address = []
     this._phone = []
+    this._document = []
   }
 
   static create (persona: InputPersonaData): PersonaOrError {
@@ -40,6 +41,10 @@ export class Persona {
 
   addDocument (document: Document): void {
     this._document.push(document)
+  }
+
+  get document (): IDocument[] {
+    return this._document
   }
 
   get address (): IAddress[] {
