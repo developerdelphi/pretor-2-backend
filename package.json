@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --passWithNoTests --noStackTrace --runInBand --forceExit",
+    "test": "jest --passWithNoTests --noStackTrace --runInBand --forceExit --detectOpenHandles",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test --watch",
     "test:integration": "npm test --watch -c jest-integration-config.js",
@@ -15,7 +15,7 @@
     "prepare": "husky install",
     "main": "tsc && node ./dist/main/api/main --trace-warnings",
     "build": "rimraf dist/* && tsc -p tsconfig.build.json",
-    "up": "npm run build && docker-compose up -d",
+    "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "start": "node ./dist/main/api/main.js"
   },
