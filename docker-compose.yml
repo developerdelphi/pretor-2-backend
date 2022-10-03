@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  api:
+    container_name: pretor-container
+    image: pretor-api
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    command: npm run start
+    volumes:
+      - ./dist:/usr/src/pretor-api/dist
+    environment:
+      - PORT=3000
+    ports:
+      - 3000:3000
+    networks:
+      - pretor-net
+  postgres:
+    container_name: pretor-db-pg
+    image: postgres:14-alpine
+    restart: always
+    networks:
+      - pretor-net
+    environment:
+      - POSTGRES_DB=pretor
+      - POSTGRES_USER=pretor
+      - POSTGRES_PASSWORD=123
+    ports:
+      - 5434:5432
+    volumes:
+      - ./database/postgres/data:/var/lib/postgresql/data
+networks:
+  pretor-net:
+    driver: bridge
