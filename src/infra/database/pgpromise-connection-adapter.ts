@@ -6,7 +6,7 @@ export default class PgPromiseConnectionAdapter implements Connection {
   static instance: PgPromiseConnectionAdapter
 
   private constructor () {
-    this.pgp = pgp()('postgres://pretor:123@0.0.0.0:5434/pretor')
+    this.pgp = pgp()('postgres://pretor:123@localhost:5434/pretor')
   }
 
   static getInstance (): PgPromiseConnectionAdapter {
@@ -17,7 +17,7 @@ export default class PgPromiseConnectionAdapter implements Connection {
   }
 
   async query (statement: string, params: any[]): Promise<any> {
-    return this.pgp.query(statement, params)
+    return await this.pgp.query(statement, params)
   }
 
   async one (statement: string, params: any[]): Promise<any> {
@@ -25,6 +25,6 @@ export default class PgPromiseConnectionAdapter implements Connection {
   }
 
   async close (): Promise<void> {
-    return this.pgp.$pool.end()
+    return await this.pgp.$pool.end()
   }
 }
