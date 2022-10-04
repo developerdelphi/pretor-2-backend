@@ -35,7 +35,8 @@ interface SutType {
   connection: Connection
 }
 const makeSut = (): SutType => {
-  const connection = PgPromiseConnectionAdapter.getInstance()
+  const config = 'postgresql://pretor:123@localhost:5434/pretor'
+  const connection = PgPromiseConnectionAdapter.getInstance(config)
   const personaRepository = new PersonaRepositoryDatabase(connection)
   const repositoryFactory = new DatabaseRepositoryFactory()
   const addPersona = new AddPersona(repositoryFactory)
@@ -45,7 +46,7 @@ const makeSut = (): SutType => {
 
 describe('Registrar uma Pessoa - UseCase', () => {
   test('Deve registrar uma pessoa no sistema', async () => {
-    const { addPersona, connection } = makeSut()
+    const { addPersona } = makeSut()
     const inputFake: InputPersonaData = {
       name: 'Valid Name',
       kind: 'F',
@@ -70,7 +71,7 @@ describe('Registrar uma Pessoa - UseCase', () => {
     }
     const newPersona = await addPersona.execute(inputFake)
     expect(newPersona.isRight()).toBeTruthy()
-    await connection.close()
+    // await connection.close()
   })
 
   test('Deve retornar InvalidNamePersonaError ao tentar registrar uma pessoa com nome inválido', async () => {

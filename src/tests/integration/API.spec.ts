@@ -10,6 +10,7 @@ describe('API Express', () => {
         kind: 'F'
       }
     })
-    console.log(response)
+    console.log(response.data)
+    expect(response.status).toBe(200)
   })
 })
