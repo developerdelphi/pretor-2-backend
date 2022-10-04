@@ -5,13 +5,14 @@ export default class PgPromiseConnectionAdapter implements Connection {
   pgp: any
   static instance: PgPromiseConnectionAdapter
 
-  private constructor () {
-    this.pgp = pgp()('postgres://pretor:123@localhost:5434/pretor')
+  private constructor(config: string) {
+    const strConnection = config ?? 'postgresql://pretor:123@db-pretor:5434/pretor'
+    this.pgp = pgp()(strConnection)
   }
 
-  static getInstance (): PgPromiseConnectionAdapter {
+  static getInstance (config: string = ''): PgPromiseConnectionAdapter {
     if (!PgPromiseConnectionAdapter.instance) {
-      PgPromiseConnectionAdapter.instance = new PgPromiseConnectionAdapter()
+      PgPromiseConnectionAdapter.instance = new PgPromiseConnectionAdapter(config)
     }
     return PgPromiseConnectionAdapter.instance
   }

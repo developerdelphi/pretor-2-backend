@@ -1,10 +1,11 @@
 import RepositoryFactory from '@/domain/factory/repository-factory'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
-import PgPromiseConnectionAdapter from '@/infra/database/pgpromise-connection-adapter'
 import PersonaRepositoryDatabase from '@/infra/repository/database/persona-repository-database'
+import PgPromiseConnectionAdapter from '../database/pgpromise-connection-adapter'
 
 export default class DatabaseRepositoryFactory implements RepositoryFactory {
   createPersonaRepository (): PersonaRepository {
-    return new PersonaRepositoryDatabase(PgPromiseConnectionAdapter.getInstance())
+    const config = 'postgresql://pretor:123@db-pretor/pretor'
+    return new PersonaRepositoryDatabase(PgPromiseConnectionAdapter.getInstance(config))
   }
 }
