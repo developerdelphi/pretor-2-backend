@@ -1,4 +1,4 @@
-import { IAddress, IDocument, InputPersonaData, IPhone, PersonaOrError } from '../protocols'
+import { IAddress, IDocument, InputPersonaData, IPhone, IQualification, PersonaOrError } from '../protocols'
 import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
 import { InvalidKindError, InvalidNamePersonaError } from '../error'
@@ -10,6 +10,7 @@ export class Persona {
   private readonly _address: IAddress[]
   private readonly _phone: IPhone[]
   private readonly _document: IDocument[]
+  private readonly _qualification: IQualification[]
 
   private constructor (personaId: string, name: Name, kind: Kind) {
     this._id = personaId
@@ -18,11 +19,13 @@ export class Persona {
     this._address = []
     this._phone = []
     this._document = []
+    this._qualification = []
   }
 
   static create (persona: InputPersonaData): PersonaOrError {
     const nameOrError: Either<InvalidNamePersonaError, Name> = Name.create(persona.name)
     const kindOrError: Either<InvalidKindError, Kind> = Kind.create(persona.kind)
+
     if (nameOrError.isLeft()) return left(new InvalidNamePersonaError(persona.name))
     if (kindOrError.isLeft()) return left(new InvalidKindError(persona.kind))
     const name: Name = nameOrError.value
@@ -40,6 +43,14 @@ export class Persona {
 
   addDocument (document: IDocument): void {
     this._document.push(document)
+  }
+
+  addQualification (qualification: IQualification): void {
+    this._qualification.push(qualification)
+  }
+
+  get qualification (): IQualification[] {
+    return this._qualification
   }
 
   get document (): IDocument[] {
