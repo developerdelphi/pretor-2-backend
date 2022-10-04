@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 describe('API Express', () => {
-  test.skip('Deve testar a API', async () => {
+  test('Deve testar a API', async () => {
     const response = await axios({
       url: 'http://localhost:3000/persona',
       method: 'POST',
@@ -10,7 +10,6 @@ describe('API Express', () => {
         kind: 'F'
       }
     })
-    console.log(response.data)
     expect(response.status).toBe(200)
   })
 })
