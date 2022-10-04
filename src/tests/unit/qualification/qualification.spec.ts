@@ -11,5 +11,6 @@ describe('Qualification Entity', () => {
     const sut = Qualification.create(input)
     expect(sut.value).toBeInstanceOf(Qualification)
     expect(sut.value).toHaveProperty('id')
+    expect(sut.value).toHaveProperty('sort', 'nacionalidade')
   })
 })
