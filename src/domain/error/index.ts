@@ -8,6 +8,7 @@ export * from './invalid-param-error'
 export * from './invalid-status-error'
 export * from './invalid-cpf-error'
 export * from './invalid-sort-error'
+export * from './invalid-quality-error'
 // imports of type phone error
 export * from './invalid-number-phone-error'
 // imports of type address error
