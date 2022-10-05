@@ -13,7 +13,11 @@ app.post('/persona', async function (req: Request, res: Response) {
   const addPersona = new AddPersona(repositoryFactory)
   const input: InputPersonaData = {
     name: req.body.name,
-    kind: req.body.kind
+    kind: req.body.kind,
+    address: req.body.address,
+    phone: req.body.phone,
+    document: req.body.document,
+    qualification: req.body.qualification
   }
   const resp = await addPersona.execute(input)
   const status = resp.isRight() ? 200 : 500
