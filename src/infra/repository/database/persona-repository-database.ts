@@ -1,4 +1,5 @@
 import { Persona } from '@/domain/entity/persona'
+import { Qualification } from '@/domain/entity/qualification'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
 import { DatabaseError } from '@/infra/error/database-error'
@@ -11,7 +12,6 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
 
     const [personaData] = await this.connection.query('insert into persona (name, kind) values ($1, $2) returning *', [persona.name, persona.kind])
       .catch(e => {
-        console.log('insert persona', e.message)
         return left(new DatabaseError(e.message))
     })
 
@@ -45,6 +45,12 @@ export default class PersonaRepositoryDatabase implements PersonaRepository {
           .catch(e => {
             console.log('insert document in persona:', e.message)
           })
+      }
+    }
+
+    if (persona.qualification.length) {
+      for (const qualification of persona.qualification) {
+        await this.connection.query('insert into qualification (persona_id, sort, quality, status) values ($1, $2, $3, $4)',[personaId, qualification.sort, qualification.quality,'active'])
       }
     }
 

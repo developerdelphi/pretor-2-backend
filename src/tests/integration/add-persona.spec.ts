@@ -67,6 +67,11 @@ describe('Registrar uma Pessoa - UseCase', () => {
         kind: 'RG',
         identifier: '123456/SSP-GO',
         status: 'active'
+      }],
+      qualification: [{
+        sort: 'nacionalidade',
+        quality: 'brasileira',
+        status: 'active'
       }]
     }
     const newPersona = await addPersona.execute(inputFake)
