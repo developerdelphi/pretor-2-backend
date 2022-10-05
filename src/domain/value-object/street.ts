@@ -9,8 +9,8 @@ export class Street {
     Object.freeze(this)
   }
 
-  static create (street: string): Either<InvalidStreetError, Street> {
-    street = street.trim()
+  static create (streetInput: string): Either<InvalidStreetError, Street> {
+    const street = streetInput ? streetInput.trim() : streetInput
     if (!Street.isValid(street)) {
       return left(new InvalidStreetError(street))
     }
