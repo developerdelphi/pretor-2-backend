@@ -7,8 +7,8 @@ export class City {
     this.city = city
   }
 
-  static create (city: string): Either<InvalidCityError, City> {
-    city = city.trim()
+  static create (cityInput: string): Either<InvalidCityError, City> {
+    const city = cityInput ? cityInput.trim() : cityInput
     if (!City.isValid(city)) return left(new InvalidCityError(city))
     return right(new City(city))
   }

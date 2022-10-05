@@ -7,8 +7,8 @@ export class Cpf {
     this.cpf = cpf
   }
 
-  static create (cpf: string): Either<InvalidCpfError, Cpf> {
-    cpf = cpf.trim()
+  static create (cpfInput: string): Either<InvalidCpfError, Cpf> {
+    const cpf = cpfInput ? cpfInput.trim() : cpfInput
     if (!Cpf.isValid(cpf)) return left(new InvalidCpfError(cpf))
     return right(new Cpf(cpf))
   }

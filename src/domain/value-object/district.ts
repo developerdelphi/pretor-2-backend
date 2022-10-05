@@ -13,8 +13,8 @@ export class District implements District {
     Object.freeze(this)
   }
 
-  static create (district: string): Either<InvalidDistrictError, District> {
-    district = district.trim()
+  static create (districtInput: string): Either<InvalidDistrictError, District> {
+    const district = districtInput ? districtInput.trim() : districtInput
     if (!District.isValid(district)) return left(new InvalidDistrictError(district))
     return right(new District(district))
   }

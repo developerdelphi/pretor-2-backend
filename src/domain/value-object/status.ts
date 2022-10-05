@@ -8,7 +8,8 @@ export class Status {
     this.status = status
   }
 
-  static create (status: string): Either<InvalidStatusError, Status> {
+  static create (statusInput: string): Either<InvalidStatusError, Status> {
+    const status = statusInput ? statusInput.trim() : statusInput
     if (!Status.isValid(status)) return left(new InvalidStatusError(status))
     return right(new Status(status))
   }

@@ -7,8 +7,8 @@ export class Cep {
     this.cep = cep
   }
 
-  static create (cep: string): Either<InvalidCepError, Cep> {
-    cep = cep.trim()
+  static create (cepInput: string): Either<InvalidCepError, Cep> {
+    const cep = cepInput ? cepInput.trim() : cepInput
     if (!Cep.isValid(cep)) return left(new InvalidCepError(cep))
     return right(new Cep(cep))
   }

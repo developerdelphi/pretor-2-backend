@@ -4,8 +4,8 @@ import { InvalidComplementAddressError } from '@/domain/error'
 export class ComplementAddress {
   private constructor (readonly complement: string) { }
 
-  static create (complement: string): Either<InvalidComplementAddressError, ComplementAddress> {
-    complement = complement.trim()
+  static create (complementInput: string): Either<InvalidComplementAddressError, ComplementAddress> {
+    const complement = complementInput ? complementInput.trim() : complementInput
     if (!ComplementAddress.isValid(complement)) return left(new InvalidComplementAddressError(complement))
     return right(new ComplementAddress(complement))
   }

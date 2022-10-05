@@ -8,7 +8,8 @@ export class NumberPhone {
     this.number = number
   }
 
-  static create (number: string): Either<InvalidNumberPhoneError, NumberPhone> {
+  static create (numberInput: string): Either<InvalidNumberPhoneError, NumberPhone> {
+    const number = numberInput ? numberInput.trim() : numberInput
     if (!NumberPhone.isValid(number)) return left(new InvalidNumberPhoneError(number))
     return right(new NumberPhone(number))
   }

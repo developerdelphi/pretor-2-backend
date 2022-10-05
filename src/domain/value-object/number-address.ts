@@ -7,8 +7,8 @@ export class NumberAddress {
     this.number = number
   }
 
-  static create (number: string): Either<InvalidNumberAddressError, NumberAddress> {
-    number = number.trim()
+  static create (numberInput: string): Either<InvalidNumberAddressError, NumberAddress> {
+    const number = numberInput ? numberInput.trim() : numberInput
     if (!NumberAddress.isValid(number)) return left(new InvalidNumberAddressError(number))
     return right(new NumberAddress(number))
   }
