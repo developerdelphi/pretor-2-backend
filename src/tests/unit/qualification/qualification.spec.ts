@@ -1,5 +1,5 @@
 import { Qualification } from '@/domain/entity/qualification'
-import { InvalidQualityError, InvalidSortError } from '@/domain/error'
+import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '@/domain/error'
 import { InputQualificationData } from '@/domain/protocols'
 
 describe('Qualification Entity', () => {
@@ -7,7 +7,8 @@ describe('Qualification Entity', () => {
     const input: InputQualificationData = {
       id: '0',
       sort: 'nacionalidade',
-      quality: 'brasileira'
+      quality: 'brasileira',
+      status: 'active'
     }
     const sut = Qualification.create(input)
     expect(sut.value).toBeInstanceOf(Qualification)
@@ -20,7 +21,8 @@ describe('Qualification Entity', () => {
     const input: InputQualificationData = {
       id: '0',
       sort: 'n',
-      quality: 'brasileira'
+      quality: 'brasileira',
+      status: 'active'
     }
     const sut = Qualification.create(input)
     expect(sut.value).toBeInstanceOf(InvalidSortError)
@@ -30,9 +32,21 @@ describe('Qualification Entity', () => {
     const input: InputQualificationData = {
       id: '0',
       sort: 'nacionalidade',
-      quality: '-'
+      quality: '-',
+      status: 'active'
     }
     const sut = Qualification.create(input)
     expect(sut.value).toBeInstanceOf(InvalidQualityError)
+  })
+
+  test('Deve retornar um InvalidStatusError se não informar um valor de status', () => {
+    const input: InputQualificationData = {
+      id: '0',
+      sort: 'nacionalidade',
+      quality: 'brasileira',
+      status: 'invalid'
+    }
+    const sut = Qualification.create(input)
+    expect(sut.value).toBeInstanceOf(InvalidStatusError)
   })
 })

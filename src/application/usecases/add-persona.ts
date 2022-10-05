@@ -6,6 +6,7 @@ import { AddressOrError, InputPersonaData } from '@/domain/protocols'
 import { left } from '@/shared/either'
 import { AddPersonaResponse } from '../protocols/add-persona-response'
 import { Address, Document, Phone } from '@/domain/entity'
+import { Qualification } from '@/domain/entity/qualification'
 
 export interface IAddPersona {
   add: (input: InputPersonaData) => Promise<PersonaModel>
@@ -49,6 +50,14 @@ export class AddPersona {
           return left(documentOrError.value)
         }
         persona.addDocument(documentOrError.value)
+      }
+    }
+
+    if (input.qualification) {
+      for (const qualification of input.qualification) {
+        const qualificationOrError = Qualification.create(qualification)
+        if (qualificationOrError.isLeft()) { return left(qualificationOrError.value) }
+        persona.addQualification(qualificationOrError.value)
       }
     }
 

@@ -37,7 +37,8 @@ describe('Persona Entity', () => {
       persona = sut.value
       const inputQualification: InputQualificationData = {
         sort: 'nacionalidade',
-        quality: 'brasileira'
+        quality: 'brasileira',
+        status: 'active'
       }
       qualification = Qualification.create(inputQualification)
       if (qualification.isRight()) { persona.addQualification(qualification.value) }
@@ -45,6 +46,7 @@ describe('Persona Entity', () => {
 
     expect(persona?.qualification[0]).toHaveProperty('sort', 'nacionalidade')
     expect(persona?.qualification[0]).toHaveProperty('quality', 'brasileira')
+    expect(persona?.qualification[0]).toHaveProperty('status', 'active')
   })
 
   test('Deve adicionar um Endereço', () => {
