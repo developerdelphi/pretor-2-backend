@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCpfError, InvalidStatusError } from '../error'
+import { InvalidCpfError, InvalidParamError, InvalidStatusError } from '../error'
 import { DocumentOrError, InputDocumentData } from '../protocols'
 import { Status } from '../value-object'
 import { Cpf } from '../value-object/cpf'
@@ -31,6 +31,7 @@ export class Document {
   }
 
   private static validator (kind: string, identifier: string): Either<Error, String> {
+    if (!kind) return left(new InvalidParamError('kind', 'O campo tipo do documento é inválido'))
     if (kind === 'CPF') {
       const cpfOrError = Cpf.create(identifier)
       if (cpfOrError.isLeft()) return left(new InvalidCpfError(identifier))

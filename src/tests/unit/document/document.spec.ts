@@ -36,4 +36,14 @@ describe('Document Entity', () => {
     const sut = Document.create(input)
     expect(sut.value).toBeInstanceOf(Document)
   })
+
+  test('Deve retornar InvalidCpfError se não informar tipo de documento', () => {
+    const input = {
+      kind: 'CPF',
+      identifier: 'valid_identifier',
+      status: 'active'
+    }
+    const sut = Document.create(input)
+    expect(sut.value).toBeInstanceOf(InvalidCpfError)
+  })
 })
