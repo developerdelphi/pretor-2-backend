@@ -1,4 +1,4 @@
-import RepositoryFactory from '@/domain/factory/repository-factory'
+import { RepositoryFactory } from '@/domain/factory'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import PersonaRepositoryDatabase from '@/infra/repository/database/persona-repository-database'
 import PgPromiseConnectionAdapter from '../database/pgpromise-connection-adapter'

@@ -1,5 +1,5 @@
 import { PersonaRepository } from '../repository/persona-repository'
 
-export default interface RepositoryFactory {
+export interface RepositoryFactory {
   createPersonaRepository: () => PersonaRepository
 }

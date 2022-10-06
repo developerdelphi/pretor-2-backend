@@ -1,6 +1,6 @@
 import { Persona } from '@/domain/entity/persona'
-import RepositoryFactory from '@/domain/factory/repository-factory'
-import { PersonaRepository } from '@/domain/repository/persona-repository'
+import { RepositoryFactory } from '@/domain/factory'
+import { PersonaRepository } from '@/domain/repository'
 import { PersonaModel } from '@/domain/models/persona'
 import { AddressOrError, InputPersonaData } from '@/domain/protocols'
 import { left } from '@/shared/either'
