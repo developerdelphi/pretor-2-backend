@@ -7,8 +7,8 @@ export class Sort {
     this.sort = sort
   }
 
-  static create (sort: string): Either<InvalidSortError, Sort> {
-    sort = sort.trim()
+  static create (sortInput: string): Either<InvalidSortError, Sort> {
+    const sort = sortInput ? sortInput.trim() : sortInput
     if (!Sort.isValid(sort)) return left(new InvalidSortError(sort))
     return right(new Sort(sort))
   }

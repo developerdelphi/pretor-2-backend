@@ -7,8 +7,8 @@ export class Name {
     this.name = name
   }
 
-  static create (name: string): Either<InvalidNamePersonaError, Name> {
-    name = name.trim()
+  static create (nameInput: string): Either<InvalidNamePersonaError, Name> {
+    const name = nameInput ? nameInput.trim() : nameInput
     if (!Name.isValid(name)) return left(new InvalidNamePersonaError(name))
     return right(new Name(name))
   }

@@ -8,8 +8,8 @@ export class Quality {
     this.quality = quality
   }
 
-  static create (quality: string): Either<InvalidQualityError, Quality> {
-    quality = quality.trim()
+  static create (qualityInput: string): Either<InvalidQualityError, Quality> {
+    const quality = qualityInput ? qualityInput.trim() : qualityInput
     if (!Quality.isValid(quality)) return left(new InvalidQualityError(quality))
     return right(new Quality(quality))
   }
