@@ -1,5 +1,4 @@
 export * from './address'
 export * from './document'
-export * from './name'
 export * from './persona'
 export * from './phone'
