@@ -1,16 +1,11 @@
 import { Persona } from '@/domain/entity/persona'
 import { RepositoryFactory } from '@/domain/factory'
 import { PersonaRepository } from '@/domain/repository'
-import { PersonaModel } from '@/domain/models/persona'
 import { AddressOrError, InputPersonaData } from '@/domain/protocols'
 import { left } from '@/shared/either'
-import { AddPersonaResponse } from '../protocols/add-persona-response'
+import { AddPersonaResponse } from '../protocols/add-persona'
 import { Address, Document, Phone } from '@/domain/entity'
 import { Qualification } from '@/domain/entity/qualification'
-
-export interface IAddPersona {
-  add: (input: InputPersonaData) => Promise<PersonaModel>
-}
 
 export class AddPersona {
   personaRepository: PersonaRepository

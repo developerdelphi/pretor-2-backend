@@ -1,6 +1,6 @@
 import { PersonaModel } from '@/domain/models/persona'
 import { InputPersonaData } from '@/domain/protocols/persona-protocols'
-import { IAddPersona } from '@/application/usecases/add-persona'
+import { IAddPersona } from '@/application/protocols'
 import { AddPersonaController } from '@/presentation/controllers/persona/add-persona'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { NameValidator } from '@/presentation/protocols'
