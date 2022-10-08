@@ -7,8 +7,8 @@ export class Kind {
     this.kind = kind
   }
 
-  static create (kind: string): Either<InvalidKindError, Kind> {
-    kind = kind.trim().toUpperCase()
+  static create (kindInput: string): Either<InvalidKindError, Kind> {
+    const kind = kindInput ? kindInput.trim().toUpperCase() : kindInput
     if (!Kind.isValid(kind)) return left(new InvalidKindError(kind))
     return right(new Kind(kind))
   }
