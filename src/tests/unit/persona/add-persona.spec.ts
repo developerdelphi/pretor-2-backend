@@ -113,7 +113,6 @@ describe('AddPersona Controller', () => {
       phone: ['number'],
       document: ['kind', 'identifier'],
       qualification: ['sort', 'qualify']
-
     }
     // console.log(requiredFields)
     expect(existsRequiredFields(httpRequest.body, requiredFields)).toBeTruthy()
@@ -202,7 +201,7 @@ describe('AddPersona Controller', () => {
     const httpRequest = {
       body: {
         name: 'valid_name',
-        kind: 'valid_kind'
+        kind: 'valid_kind' // F ou J
       }
     }
     const httpResponse = await sut.handle(httpRequest)
