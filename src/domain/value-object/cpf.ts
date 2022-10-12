@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCpfError } from '../error'
+import { InvalidCpfError } from '../entity/persona/error'
 
 export class Cpf {
   private readonly cpf: string

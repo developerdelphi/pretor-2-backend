@@ -1,5 +1,5 @@
 import { Phone } from '@/domain/entity/persona'
-import { InvalidNumberPhoneError } from '@/domain/error'
+import { InvalidNumberPhoneError } from '@/domain/entity/persona/error'
 import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 
 describe('Phone Entity', () => {

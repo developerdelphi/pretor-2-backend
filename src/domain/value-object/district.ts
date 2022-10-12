@@ -1,9 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidDistrictError } from '../error'
-
-// export interface IDistrict {
-//   readonly district: string
-// }
+import { InvalidDistrictError } from '../entity/persona/error'
 
 export class District implements District {
   private readonly district: string

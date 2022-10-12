@@ -1,5 +1,5 @@
+import { InvalidNamePersonaError } from '@/domain/entity/persona/error'
 import { Name } from '@/domain/value-object'
-import { InvalidNamePersonaError } from '@/domain/error'
 
 describe('Name Value Object', () => {
   test('Deve criar uma instância de Nome', () => {

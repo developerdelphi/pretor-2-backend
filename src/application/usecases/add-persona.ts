@@ -2,7 +2,7 @@ import { Persona } from '@/domain/entity/persona/persona'
 import { RepositoryFactory } from '@/domain/factory'
 import { PersonaRepository } from '@/domain/repository'
 import { AddressOrError, InputPersonaData } from '@/domain/protocols'
-import { left } from '@/shared/either'
+import { Either, left } from '@/shared/either'
 import { AddPersonaResponse } from '../protocols/add-persona'
 import { Address, Document, Phone } from '@/domain/entity/persona'
 import { Qualification } from '@/domain/entity/persona/qualification'
@@ -14,7 +14,7 @@ export class AddPersona {
   }
 
   async execute (input: InputPersonaData): Promise<AddPersonaResponse> {
-    const personaOrError = Persona.create({ name: input.name, kind: input.kind })
+    const personaOrError: Either<Error, Persona> = Persona.create({ name: input.name, kind: input.kind })
     if (personaOrError.isLeft()) return left(personaOrError.value)
     const persona: Persona = personaOrError.value
 

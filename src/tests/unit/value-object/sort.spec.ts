@@ -1,5 +1,5 @@
-import { InvalidSortError } from '@/domain/error'
-import { Sort } from '@/domain/value-object/Sort'
+import { InvalidSortError } from '@/domain/entity/persona/error'
+import { Sort } from '@/domain/value-object/sort'
 
 describe('Sort Value Object', () => {
   test('Deve retornar uma instância de value object Sort', () => {

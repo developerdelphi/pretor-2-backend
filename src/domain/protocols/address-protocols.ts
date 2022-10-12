@@ -1,5 +1,5 @@
 import { Either } from '@/shared/either'
-import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidNumberAddressError, InvalidStatusError, InvalidStreetError, InvalidUfError } from '@/domain/error'
+import { InvalidCepError, InvalidCityError, InvalidDistrictError, InvalidNumberAddressError, InvalidStatusError, InvalidStreetError, InvalidUfError } from '@/domain/entity/persona/error'
 
 export type AddressOrError = Either<InvalidStreetError | InvalidDistrictError | InvalidCityError | InvalidUfError | InvalidCepError | InvalidStatusError | InvalidNumberAddressError, IAddress>
 export interface IAddress {

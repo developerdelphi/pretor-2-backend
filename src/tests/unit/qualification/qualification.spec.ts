@@ -1,5 +1,5 @@
 import { Qualification } from '@/domain/entity/persona/qualification'
-import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '@/domain/error'
+import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '@/domain/entity/persona/error'
 import { InputQualificationData } from '@/domain/protocols'
 
 describe('Qualification Entity', () => {

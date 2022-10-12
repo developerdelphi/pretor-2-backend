@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidStatusError } from '../error/invalid-status-error'
+import { InvalidStatusError } from '@/domain/entity/persona/error'
 
 export class Status {
   private readonly status: string

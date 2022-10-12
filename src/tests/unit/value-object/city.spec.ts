@@ -1,4 +1,4 @@
-import { InvalidCityError } from '@/domain/error'
+import { InvalidCityError } from '@/domain/entity/persona/error'
 import { City } from '@/domain/value-object/city'
 
 describe('City Value Object', () => {

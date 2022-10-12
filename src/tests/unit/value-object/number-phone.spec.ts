@@ -1,4 +1,4 @@
-import { InvalidNumberPhoneError } from '@/domain/error'
+import { InvalidNumberPhoneError } from '@/domain/entity/persona/error'
 import { NumberPhone } from '@/domain/value-object/number-phone'
 
 describe('Number of Phone Value Object', () => {

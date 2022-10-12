@@ -1,4 +1,4 @@
-import { InvalidKindError } from '@/domain/error'
+import { InvalidKindError } from '@/domain/entity/persona/error'
 import { Kind } from '@/domain/value-object/kind'
 
 describe('Kind Value Object', () => {

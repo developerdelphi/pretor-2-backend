@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidQualityError } from '../error'
+import { InvalidQualityError } from '@/domain/entity/persona/error'
 
 export class Quality {
   private readonly quality: string

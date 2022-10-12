@@ -1,4 +1,4 @@
-import { InvalidCpfError } from '@/domain/error'
+import { InvalidCpfError } from '@/domain/entity/persona/error'
 import { Cpf } from '@/domain/value-object/cpf'
 
 describe('CPF Value Object', () => {

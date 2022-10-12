@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidNumberAddressError } from '../error/invalid-number-address-error'
+import { InvalidNumberAddressError } from '../entity/persona/error'
 
 export class NumberAddress {
   private readonly number: string

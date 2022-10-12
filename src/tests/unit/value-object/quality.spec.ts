@@ -1,4 +1,4 @@
-import { InvalidQualityError } from '@/domain/error'
+import { InvalidQualityError } from '@/domain/entity/persona/error'
 import { Quality } from '@/domain/value-object/quality'
 
 describe('Quality Value Object', () => {

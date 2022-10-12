@@ -1,5 +1,5 @@
 import { Document } from '@/domain/entity/persona'
-import { InvalidCpfError } from '@/domain/error'
+import { InvalidCpfError } from '@/domain/entity/persona/error'
 import { InputDocumentData } from '@/domain/protocols/document-protocols'
 
 describe('Document Entity', () => {

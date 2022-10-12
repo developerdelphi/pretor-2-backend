@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCepError } from '../error/invalid-cep-error'
+import { InvalidCepError } from '../entity/persona/error'
 
 export class Cep {
   private readonly cep: string

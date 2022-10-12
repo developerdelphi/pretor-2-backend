@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidSortError } from '../error'
+import { InvalidSortError } from '@/domain/entity/persona/error'
 
 export class Sort {
   private readonly sort: string

@@ -1,4 +1,4 @@
-import { InvalidComplementAddressError } from '@/domain/error'
+import { InvalidComplementAddressError } from '@/domain/entity/persona/error'
 import { ComplementAddress } from '@/domain/value-object/complement-address'
 
 describe('Complement Address Value Object', () => {

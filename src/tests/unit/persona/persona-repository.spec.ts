@@ -1,7 +1,7 @@
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Persona } from '@/domain/entity/persona/persona'
 import { Either, left, right } from '@/shared/either'
-import { InvalidNamePersonaError } from '@/domain/error'
+import { InvalidNamePersonaError } from '@/domain/entity/persona/error'
 
 const makeSut = (): PersonaRepository => {
   class PersonaRepositoryPgGresStub implements PersonaRepository {

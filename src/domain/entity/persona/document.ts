@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCpfError, InvalidParamError, InvalidStatusError } from '../../error'
+import { InvalidCpfError, InvalidParamError, InvalidStatusError } from '@/domain/entity/persona/error'
 import { DocumentOrError, InputDocumentData } from '../../protocols'
 import { Status } from '../../value-object'
 import { Cpf } from '../../value-object/cpf'

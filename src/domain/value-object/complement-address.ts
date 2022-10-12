@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidComplementAddressError } from '@/domain/error'
+import { InvalidComplementAddressError } from '@/domain/entity/persona/error'
 
 export class ComplementAddress {
   private constructor (readonly complement: string) { }

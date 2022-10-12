@@ -1,7 +1,7 @@
-import { IAddress, IDocument, InputPersonaData, IPhone, IQualification, PersonaOrError } from '../../protocols'
+import { IAddress, IDocument, InputPersonaData, IPhone, IQualification, PersonaOrError } from '@/domain/protocols'
 import { Name, Kind } from '@/domain/value-object'
 import { Either, left, right } from '@/shared/either'
-import { InvalidKindError, InvalidNamePersonaError } from '../../error'
+import { InvalidKindError, InvalidNamePersonaError } from '@/domain/entity/persona/error'
 
 export class Persona {
   protected _id: string

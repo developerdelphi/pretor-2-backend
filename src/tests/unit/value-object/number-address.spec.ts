@@ -1,4 +1,4 @@
-import { InvalidNumberAddressError } from '@/domain/error'
+import { InvalidNumberAddressError } from '@/domain/entity/persona/error'
 import { NumberAddress } from '@/domain/value-object'
 
 describe('Number of Address Value Object', () => {

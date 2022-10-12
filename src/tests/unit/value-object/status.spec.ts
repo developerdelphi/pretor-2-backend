@@ -1,4 +1,4 @@
-import { InvalidStatusError } from '@/domain/error/invalid-status-error'
+import { InvalidStatusError } from '@/domain/entity/persona/error'
 import { Status } from '@/domain/value-object/status'
 
 describe('Status Value Objects', () => {

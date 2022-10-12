@@ -1,10 +1,8 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCepError, InvalidCityError, InvalidComplementAddressError, InvalidDistrictError, InvalidNumberAddressError, InvalidStreetError, InvalidUfError } from '@/domain/error'
+import { InvalidCepError, InvalidCityError, InvalidComplementAddressError, InvalidDistrictError, InvalidNumberAddressError, InvalidStatusError, InvalidStreetError, InvalidUfError } from '@/domain/entity/persona/error'
 import { AddressOrError, IAddress, InputAddressData } from '@/domain/protocols'
-import { Cep, City, District, NumberAddress, Street, Uf } from '@/domain/value-object'
-import { Status } from '../../value-object/status'
-import { InvalidStatusError } from '../../error/invalid-status-error'
-import { ComplementAddress } from '../../value-object/complement-address'
+import { Cep, City, District, NumberAddress, Status, Street, Uf } from '@/domain/value-object'
+import { ComplementAddress } from '@/domain/value-object/complement-address'
 
 export class Address implements IAddress {
   addressId: number

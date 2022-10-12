@@ -1,4 +1,4 @@
-import { InvalidUfError } from '@/domain/error'
+import { InvalidUfError } from '@/domain/entity/persona/error'
 import { Uf } from '@/domain/value-object'
 
 describe('UF Value Object', () => {

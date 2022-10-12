@@ -1,5 +1,5 @@
 import { AddPersona } from '@/application/usecases/add-persona'
-import { InvalidCpfError, InvalidKindError, InvalidNamePersonaError, InvalidNumberPhoneError, InvalidStreetError } from '@/domain/error'
+import { InvalidCpfError, InvalidKindError, InvalidNamePersonaError, InvalidNumberPhoneError, InvalidStreetError } from '@/domain/entity/persona/error'
 import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'

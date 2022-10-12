@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '../../error'
+import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '@/domain/entity/persona/error'
 import { InputQualificationData, IQualification } from '../../protocols'
 import { Status } from '../../value-object'
 import { Quality } from '../../value-object/quality'
-import { Sort } from '../../value-object/Sort'
+import { Sort } from '../../value-object/sort'
 
 export class Qualification implements IQualification {
   private readonly _id: string

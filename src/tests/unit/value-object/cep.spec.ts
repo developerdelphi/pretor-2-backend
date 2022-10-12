@@ -1,4 +1,4 @@
-import { InvalidCepError } from '@/domain/error'
+import { InvalidCepError } from '@/domain/entity/persona/error'
 import { Cep } from '@/domain/value-object'
 
 describe('CEP Value Object', () => {

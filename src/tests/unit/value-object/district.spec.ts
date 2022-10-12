@@ -1,4 +1,4 @@
-import { InvalidDistrictError } from '@/domain/error'
+import { InvalidDistrictError } from '@/domain/entity/persona/error'
 import { District } from '@/domain/value-object'
 
 describe('District Value Object', () => {

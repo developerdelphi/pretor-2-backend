@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCityError } from '../error'
+import { InvalidCityError } from '../entity/persona/error'
 
 export class City {
   private readonly city: string

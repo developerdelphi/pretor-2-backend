@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidNumberPhoneError } from '../error'
+import { InvalidNumberPhoneError } from '@/domain/entity/persona/error'
 
 export class NumberPhone {
   private readonly number: string
@@ -8,7 +8,7 @@ export class NumberPhone {
     this.number = number
   }
 
-  static create (numberInput: string): Either<InvalidNumberPhoneError, NumberPhone> {
+  static create (numberInput: string): Either<Error, NumberPhone> {
     const number = numberInput ? numberInput.trim() : numberInput
     if (!NumberPhone.isValid(number)) return left(new InvalidNumberPhoneError(number))
     return right(new NumberPhone(number))

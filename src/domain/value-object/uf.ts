@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidUfError } from '@/domain/error'
+import { InvalidUfError } from '@/domain/entity/persona/error'
 
 export class Uf {
   private readonly uf: string

@@ -1,4 +1,4 @@
-import { InvalidStreetError } from '@/domain/error'
+import { InvalidStreetError } from '@/domain/entity/persona/error'
 import { Street } from '@/domain/value-object/street'
 import { Either, Left, Right } from '@/shared/either'
 

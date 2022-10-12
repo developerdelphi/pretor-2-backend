@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidKindError } from '../error'
+import { InvalidKindError } from '../entity/persona/error'
 
 export class Kind {
   private readonly kind: string
