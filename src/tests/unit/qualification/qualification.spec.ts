@@ -1,4 +1,4 @@
-import { Qualification } from '@/domain/entity/qualification'
+import { Qualification } from '@/domain/entity/persona/qualification'
 import { InvalidQualityError, InvalidSortError, InvalidStatusError } from '@/domain/error'
 import { InputQualificationData } from '@/domain/protocols'
 

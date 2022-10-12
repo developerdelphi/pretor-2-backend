@@ -1,4 +1,4 @@
-import { Document } from '@/domain/entity'
+import { Document } from '@/domain/entity/persona'
 import { InvalidCpfError } from '@/domain/error'
 import { InputDocumentData } from '@/domain/protocols/document-protocols'
 

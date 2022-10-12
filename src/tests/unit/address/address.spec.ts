@@ -1,4 +1,4 @@
-import { Address } from '@/domain/entity'
+import { Address } from '@/domain/entity/persona'
 import { InvalidComplementAddressError, InvalidNumberAddressError, InvalidStreetError } from '@/domain/error'
 import { IAddress, InputAddressData } from '@/domain/protocols'
 import { InvalidParamError } from '@/presentation/errors'

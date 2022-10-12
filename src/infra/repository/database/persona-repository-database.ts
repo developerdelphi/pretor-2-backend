@@ -1,5 +1,4 @@
-import { Persona } from '@/domain/entity/persona'
-import { Qualification } from '@/domain/entity/qualification'
+import { Persona } from '@/domain/entity/persona/persona'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
 import { Connection } from '@/infra/database/connection'
 import { DatabaseError } from '@/infra/error/database-error'

@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/shared/either'
-import { InvalidCpfError, InvalidParamError, InvalidStatusError } from '../error'
-import { DocumentOrError, InputDocumentData } from '../protocols'
-import { Status } from '../value-object'
-import { Cpf } from '../value-object/cpf'
+import { InvalidCpfError, InvalidParamError, InvalidStatusError } from '../../error'
+import { DocumentOrError, InputDocumentData } from '../../protocols'
+import { Status } from '../../value-object'
+import { Cpf } from '../../value-object/cpf'
 
 export class Document {
   private readonly _id: string

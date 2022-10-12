@@ -1,5 +1,5 @@
 import { PersonaRepository } from '@/domain/repository/persona-repository'
-import { Persona } from '@/domain/entity/persona'
+import { Persona } from '@/domain/entity/persona/persona'
 import { Either, left, right } from '@/shared/either'
 import { InvalidNamePersonaError } from '@/domain/error'
 

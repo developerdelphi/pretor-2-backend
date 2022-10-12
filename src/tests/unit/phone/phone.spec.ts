@@ -1,4 +1,4 @@
-import { Phone } from '@/domain/entity'
+import { Phone } from '@/domain/entity/persona'
 import { InvalidNumberPhoneError } from '@/domain/error'
 import { InputPhoneData } from '@/domain/protocols/phone-protocols'
 

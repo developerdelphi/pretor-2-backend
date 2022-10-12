@@ -1,5 +1,5 @@
 import { Either } from '@/shared/either'
-import { Persona } from '../entity'
+import { Persona } from '../entity/persona'
 import { InvalidKindError, InvalidNamePersonaError } from '../error'
 import { IAddress, IDocument, InputAddressData, InputDocumentData, InputPhoneData, InputQualificationData, IPhone } from './'
 

@@ -1,5 +1,5 @@
-import { Address, Persona } from '@/domain/entity'
-import { Qualification } from '@/domain/entity/qualification'
+import { Address, Persona } from '@/domain/entity/persona'
+import { Qualification } from '@/domain/entity/persona/qualification'
 import { InvalidNamePersonaError } from '@/domain/error'
 import { InputAddressData, InputPersonaData, InputQualificationData } from '@/domain/protocols'
 import { Either } from '@/shared/either'
