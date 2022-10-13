@@ -7,7 +7,7 @@ import { AddPersonaResponse } from '../protocols/add-persona'
 import { Address, Document, Phone } from '@/domain/entity/persona'
 import { Qualification } from '@/domain/entity/persona/qualification'
 
-export class AddPersona {
+export class AddPersonaUseCase {
   personaRepository: PersonaRepository
   constructor (readonly repositoryFactory: RepositoryFactory) {
     this.personaRepository = repositoryFactory.createPersonaRepository()

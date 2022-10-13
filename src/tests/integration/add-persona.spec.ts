@@ -1,4 +1,4 @@
-import { AddPersona } from '@/application/usecases/add-persona'
+import { AddPersonaUseCase } from '@/application/usecases/add-persona'
 import { InvalidCpfError, InvalidKindError, InvalidNamePersonaError, InvalidNumberPhoneError, InvalidStreetError } from '@/domain/entity/persona/error'
 import { InputPersonaData } from '@/domain/protocols'
 import { PersonaRepository } from '@/domain/repository/persona-repository'
@@ -30,7 +30,7 @@ const input: InputPersonaData = {
   }]
 }
 interface SutType {
-  addPersona: AddPersona
+  addPersona: AddPersonaUseCase
   personaRepository: PersonaRepository
   connection: Connection
 }
@@ -39,7 +39,7 @@ const makeSut = (): SutType => {
   const connection = PgPromiseConnectionAdapter.getInstance(config)
   const personaRepository = new PersonaRepositoryDatabase(connection)
   const repositoryFactory = new DatabaseRepositoryFactory()
-  const addPersona = new AddPersona(repositoryFactory)
+  const addPersona = new AddPersonaUseCase(repositoryFactory)
 
   return { addPersona, personaRepository, connection }
 }
